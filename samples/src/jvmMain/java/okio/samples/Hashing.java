@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.samples;
+package com.squareup.wire.shaded.okio.samples;
 
 import java.io.IOException;
-import okio.Buffer;
-import okio.BufferedSink;
-import okio.BufferedSource;
-import okio.ByteString;
-import okio.FileSystem;
-import okio.HashingSink;
-import okio.HashingSource;
-import okio.Okio;
-import okio.Path;
-import okio.Source;
+import com.squareup.wire.shaded.okio.Buffer;
+import com.squareup.wire.shaded.okio.BufferedSink;
+import com.squareup.wire.shaded.okio.BufferedSource;
+import com.squareup.wire.shaded.okio.ByteString;
+import com.squareup.wire.shaded.okio.FileSystem;
+import com.squareup.wire.shaded.okio.HashingSink;
+import com.squareup.wire.shaded.okio.HashingSource;
+import com.squareup.wire.shaded.okio.Okio;
+import com.squareup.wire.shaded.okio.Path;
+import com.squareup.wire.shaded.okio.Source;
 
 public final class Hashing {
   public void run() throws Exception {

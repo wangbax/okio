@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
-import okio.leftRotate
+import com.squareup.wire.shaded.okio.leftRotate
 
 internal class Sha1 : HashFunction {
   private var messageLength = 0L

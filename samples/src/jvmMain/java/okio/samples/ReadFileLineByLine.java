@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.samples;
+package com.squareup.wire.shaded.okio.samples;
 
 import java.io.IOException;
-import okio.BufferedSource;
-import okio.FileSystem;
-import okio.Okio;
-import okio.Path;
-import okio.Source;
+import com.squareup.wire.shaded.okio.BufferedSource;
+import com.squareup.wire.shaded.okio.FileSystem;
+import com.squareup.wire.shaded.okio.Okio;
+import com.squareup.wire.shaded.okio.Path;
+import com.squareup.wire.shaded.okio.Source;
 
 public final class ReadFileLineByLine {
   public void run() throws Exception {

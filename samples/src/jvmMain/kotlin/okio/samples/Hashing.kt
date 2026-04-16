@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.samples
+package com.squareup.wire.shaded.okio.samples
 
 import java.io.IOException
-import okio.Buffer
-import okio.ByteString
-import okio.ByteString.Companion.decodeHex
-import okio.FileSystem
-import okio.HashingSink.Companion.sha256
-import okio.HashingSource.Companion.sha256
-import okio.Path
-import okio.Path.Companion.toPath
-import okio.blackholeSink
-import okio.buffer
+import com.squareup.wire.shaded.okio.Buffer
+import com.squareup.wire.shaded.okio.ByteString
+import com.squareup.wire.shaded.okio.ByteString.Companion.decodeHex
+import com.squareup.wire.shaded.okio.FileSystem
+import com.squareup.wire.shaded.okio.HashingSink.Companion.sha256
+import com.squareup.wire.shaded.okio.HashingSource.Companion.sha256
+import com.squareup.wire.shaded.okio.Path
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.blackholeSink
+import com.squareup.wire.shaded.okio.buffer
 
 class KotlinHashing {
   fun run() {

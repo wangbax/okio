@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.IOException
-import okio.TestUtil.SEGMENT_SIZE
+import com.squareup.wire.shaded.okio.TestUtil.SEGMENT_SIZE
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
 import org.junit.Test

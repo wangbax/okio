@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.samples
+package com.squareup.wire.shaded.okio.samples
 
 import kotlin.math.hypot
-import okio.BufferedSink
-import okio.FileSystem
-import okio.IOException
-import okio.Path
-import okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.BufferedSink
+import com.squareup.wire.shaded.okio.FileSystem
+import com.squareup.wire.shaded.okio.IOException
+import com.squareup.wire.shaded.okio.Path
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
 
 class KotlinBitmapEncoder {
   class Bitmap(

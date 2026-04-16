@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlinx.cinterop.ByteVar
 import kotlinx.cinterop.CPointer
@@ -23,8 +23,8 @@ import kotlinx.cinterop.allocArray
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.toKString
-import okio.Path.Companion.toPath
-import okio.internal.toPath
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.internal.toPath
 import platform.posix.DEFFILEMODE
 import platform.posix.ENOENT
 import platform.posix.FILE

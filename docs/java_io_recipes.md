@@ -8,7 +8,7 @@ Read a text file line-by-line ([Java][ReadJavaIoFileLineByLine]/[Kotlin][ReadJav
 -----------------------------------------------------------------------------------------------------
 
 This is similar to the other [line-by-line example](recipes.md#read-a-text-file-line-by-line-javakotlin), but it uses `java.io.File`
-instead of `okio.Path` and `okio.FileSystem`.
+instead of `com.squareup.wire.shaded.okio.Path` and `com.squareup.wire.shaded.okio.FileSystem`.
 
 === "Java"
 
@@ -55,7 +55,7 @@ Write a text file ([Java][WriteJavaIoFile]/[Kotlin][WriteJavaIoFileKt])
 -----------------------------------------------------------------------------------------------------
 
 This is similar to the other [write example](recipes.md#write-a-text-file-javakotlin), but it uses
-`java.io.File` instead of `okio.Path` and `okio.FileSystem`.
+`java.io.File` instead of `com.squareup.wire.shaded.okio.Path` and `com.squareup.wire.shaded.okio.FileSystem`.
 
 === "Java"
 

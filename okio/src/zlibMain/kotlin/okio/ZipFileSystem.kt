@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
-import okio.Path.Companion.toPath
-import okio.internal.COMPRESSION_METHOD_STORED
-import okio.internal.FixedLengthSource
-import okio.internal.ZipEntry
-import okio.internal.readLocalHeader
-import okio.internal.skipLocalHeader
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.internal.COMPRESSION_METHOD_STORED
+import com.squareup.wire.shaded.okio.internal.FixedLengthSource
+import com.squareup.wire.shaded.okio.internal.ZipEntry
+import com.squareup.wire.shaded.okio.internal.readLocalHeader
+import com.squareup.wire.shaded.okio.internal.skipLocalHeader
 
 /**
  * Read only access to a [zip file](https://pkware.cachefly.net/webdocs/APPNOTE/APPNOTE_6.2.0.txt)

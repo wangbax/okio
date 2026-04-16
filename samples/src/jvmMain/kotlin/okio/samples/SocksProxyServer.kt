@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.samples
+package com.squareup.wire.shaded.okio.samples
 
 import java.io.IOException
 import java.net.InetAddress
@@ -26,13 +26,13 @@ import java.net.URL
 import java.util.Collections
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.Executors
-import okio.Buffer
-import okio.BufferedSink
-import okio.Sink
-import okio.Source
-import okio.buffer
-import okio.sink
-import okio.source
+import com.squareup.wire.shaded.okio.Buffer
+import com.squareup.wire.shaded.okio.BufferedSink
+import com.squareup.wire.shaded.okio.Sink
+import com.squareup.wire.shaded.okio.Source
+import com.squareup.wire.shaded.okio.buffer
+import com.squareup.wire.shaded.okio.sink
+import com.squareup.wire.shaded.okio.source
 
 private const val VERSION_5 = 5
 private const val METHOD_NO_AUTHENTICATION_REQUIRED = 0

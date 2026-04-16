@@ -17,10 +17,10 @@
 @file:JvmMultifileClass
 @file:JvmName("Okio")
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
 @Throws(IOException::class)
-fun FileSystem.openZip(zipPath: Path): FileSystem = okio.internal.openZip(zipPath, this)
+fun FileSystem.openZip(zipPath: Path): FileSystem = com.squareup.wire.shaded.okio.internal.openZip(zipPath, this)

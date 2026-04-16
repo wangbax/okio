@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
-import okio.ByteString
-import okio.xor
+import com.squareup.wire.shaded.okio.ByteString
+import com.squareup.wire.shaded.okio.xor
 
 internal class Hmac private constructor(
   private val hashFunction: HashFunction,

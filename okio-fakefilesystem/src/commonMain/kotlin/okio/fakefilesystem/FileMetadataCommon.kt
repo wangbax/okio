@@ -15,13 +15,13 @@
  */
 @file:JvmName("-Time")
 
-package okio.fakefilesystem
+package com.squareup.wire.shaded.okio.fakefilesystem
 
 import kotlin.jvm.JvmName
 import kotlin.reflect.KClass
 import kotlinx.datetime.Instant
-import okio.FileMetadata
-import okio.Path
+import com.squareup.wire.shaded.okio.FileMetadata
+import com.squareup.wire.shaded.okio.Path
 
 @JvmName("newFileMetadata")
 internal fun FileMetadata(

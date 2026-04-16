@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.nio.file.Files
 import kotlin.text.Charsets.UTF_8
-import okio.TestUtil.SEGMENT_SIZE
+import com.squareup.wire.shaded.okio.TestUtil.SEGMENT_SIZE
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail

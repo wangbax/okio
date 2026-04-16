@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 /**
  * A sink that computes a hash of the full stream of bytes it has accepted. To use, create an

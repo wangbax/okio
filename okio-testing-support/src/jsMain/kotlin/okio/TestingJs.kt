@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 actual fun isBrowser(): Boolean {
   return js("""(globalThis.window || null)""") != null

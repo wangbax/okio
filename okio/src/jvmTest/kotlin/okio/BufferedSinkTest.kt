@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.EOFException
 import java.math.BigInteger
 import java.nio.ByteBuffer
 import java.nio.charset.Charset
 import kotlin.text.Charsets.UTF_8
-import okio.ByteString.Companion.decodeHex
-import okio.ByteString.Companion.encodeUtf8
-import okio.TestUtil.SEGMENT_SIZE
-import okio.TestUtil.segmentSizes
+import com.squareup.wire.shaded.okio.ByteString.Companion.decodeHex
+import com.squareup.wire.shaded.okio.ByteString.Companion.encodeUtf8
+import com.squareup.wire.shaded.okio.TestUtil.SEGMENT_SIZE
+import com.squareup.wire.shaded.okio.TestUtil.segmentSizes
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
 import org.junit.Test

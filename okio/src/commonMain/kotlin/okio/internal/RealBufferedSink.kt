@@ -19,16 +19,16 @@
 
 @file:JvmName("-RealBufferedSink") // A leading '-' hides this class from Java.
 
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
 import kotlin.jvm.JvmName
-import okio.Buffer
-import okio.BufferedSink
-import okio.ByteString
-import okio.EOFException
-import okio.RealBufferedSink
-import okio.Segment
-import okio.Source
+import com.squareup.wire.shaded.okio.Buffer
+import com.squareup.wire.shaded.okio.BufferedSink
+import com.squareup.wire.shaded.okio.ByteString
+import com.squareup.wire.shaded.okio.EOFException
+import com.squareup.wire.shaded.okio.RealBufferedSink
+import com.squareup.wire.shaded.okio.Segment
+import com.squareup.wire.shaded.okio.Source
 
 internal inline fun RealBufferedSink.commonWrite(source: Buffer, byteCount: Long) {
   check(!closed) { "closed" }

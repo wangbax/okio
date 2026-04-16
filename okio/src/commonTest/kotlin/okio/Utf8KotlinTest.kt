@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import okio.ByteString.Companion.decodeHex
-import okio.internal.commonAsUtf8ToByteArray
+import com.squareup.wire.shaded.okio.ByteString.Companion.decodeHex
+import com.squareup.wire.shaded.okio.internal.commonAsUtf8ToByteArray
 
 class Utf8KotlinTest {
   @Test fun oneByteCharacters() {

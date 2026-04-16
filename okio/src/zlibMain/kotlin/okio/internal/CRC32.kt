@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
 expect class CRC32() {
   fun update(content: ByteArray, offset: Int, byteCount: Int)

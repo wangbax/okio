@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.samples;
+package com.squareup.wire.shaded.okio.samples;
 
 import java.io.IOException;
-import okio.ByteString;
-import okio.Utf8;
+import com.squareup.wire.shaded.okio.ByteString;
+import com.squareup.wire.shaded.okio.Utf8;
 
 public final class ExploreCharsets {
   public void run() throws Exception {

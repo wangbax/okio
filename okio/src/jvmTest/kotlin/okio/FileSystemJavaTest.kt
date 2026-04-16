@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.File
 import java.nio.file.Paths
-import okio.ByteString.Companion.encodeUtf8
-import okio.Path.Companion.toOkioPath
-import okio.Path.Companion.toPath
-import okio.fakefilesystem.FakeFileSystem
+import com.squareup.wire.shaded.okio.ByteString.Companion.encodeUtf8
+import com.squareup.wire.shaded.okio.Path.Companion.toOkioPath
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.fakefilesystem.FakeFileSystem
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 

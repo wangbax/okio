@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.test.BeforeTest
 import kotlin.test.Ignore
@@ -28,9 +28,9 @@ import kotlin.test.fail
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
-import okio.ByteString.Companion.encodeUtf8
-import okio.ByteString.Companion.toByteString
-import okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.ByteString.Companion.encodeUtf8
+import com.squareup.wire.shaded.okio.ByteString.Companion.toByteString
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
 
 /** This test assumes that okio-files/ is the current working directory when executed. */
 abstract class AbstractFileSystemTest(
@@ -294,20 +294,20 @@ abstract class AbstractFileSystemTest(
       fileSystem.workingDirectory = workingDirectory
       val apiDir = "api".toPath()
       fileSystem.createDirectory(apiDir)
-      fileSystem.write(apiDir / "okio.api".toPath()) {
+      fileSystem.write(apiDir / "com.squareup.wire.shaded.okio.api".toPath()) {
         writeUtf8("hello, world!")
       }
     } else if (isWrappingJimFileSystem || isWasiFileSystem) {
       val apiDir = "api".toPath()
       fileSystem.createDirectory(apiDir)
-      fileSystem.write(apiDir / "okio.api".toPath()) {
+      fileSystem.write(apiDir / "com.squareup.wire.shaded.okio.api".toPath()) {
         writeUtf8("hello, world!")
       }
     }
 
     try {
       assertEquals(
-        listOf("api".toPath() / "okio.api".toPath()),
+        listOf("api".toPath() / "com.squareup.wire.shaded.okio.api".toPath()),
         fileSystem.list("api".toPath()),
         // List some entries to help debugging.
         fileSystem.listRecursively(".".toPath()).take(5).toList().joinToString(),
@@ -345,20 +345,20 @@ abstract class AbstractFileSystemTest(
       fileSystem.workingDirectory = workingDirectory
       val apiDir = "api".toPath()
       fileSystem.createDirectory(apiDir)
-      fileSystem.write(apiDir / "okio.api".toPath()) {
+      fileSystem.write(apiDir / "com.squareup.wire.shaded.okio.api".toPath()) {
         writeUtf8("hello, world!")
       }
     } else if (isWrappingJimFileSystem) {
       val apiDir = "api".toPath()
       fileSystem.createDirectory(apiDir)
-      fileSystem.write(apiDir / "okio.api".toPath()) {
+      fileSystem.write(apiDir / "com.squareup.wire.shaded.okio.api".toPath()) {
         writeUtf8("hello, world!")
       }
     }
 
     try {
       assertEquals(
-        listOf("api".toPath() / "okio.api".toPath()),
+        listOf("api".toPath() / "com.squareup.wire.shaded.okio.api".toPath()),
         fileSystem.listOrNull("api".toPath()),
         // List some entries to help debugging.
         fileSystem.listRecursively(".".toPath()).take(5).toList().joinToString(),

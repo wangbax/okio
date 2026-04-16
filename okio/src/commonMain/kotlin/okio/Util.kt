@@ -15,11 +15,11 @@
  */
 @file:JvmName("-SegmentedByteString") // A leading '-' hides this class from Java.
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.jvm.JvmName
 import kotlin.native.concurrent.SharedImmutable
-import okio.internal.HEX_DIGIT_CHARS
+import com.squareup.wire.shaded.okio.internal.HEX_DIGIT_CHARS
 
 internal fun checkOffsetAndCount(size: Long, offset: Long, byteCount: Long) {
   if (offset or byteCount < 0 || offset > size || size - offset < byteCount) {

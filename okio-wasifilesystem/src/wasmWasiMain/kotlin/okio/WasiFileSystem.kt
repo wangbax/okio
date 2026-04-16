@@ -13,48 +13,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.wasm.unsafe.Pointer
 import kotlin.wasm.unsafe.withScopedMemoryAllocator
-import okio.Path.Companion.toPath
-import okio.internal.ErrnoException
-import okio.internal.fdClose
-import okio.internal.preview1.Errno
-import okio.internal.preview1.dirnamelen
-import okio.internal.preview1.fd
-import okio.internal.preview1.fd_prestat_dir_name
-import okio.internal.preview1.fd_prestat_get
-import okio.internal.preview1.fd_readdir
-import okio.internal.preview1.fdflags
-import okio.internal.preview1.fdflags_append
-import okio.internal.preview1.filetype
-import okio.internal.preview1.filetype_directory
-import okio.internal.preview1.filetype_regular_file
-import okio.internal.preview1.filetype_symbolic_link
-import okio.internal.preview1.oflag_creat
-import okio.internal.preview1.oflag_directory
-import okio.internal.preview1.oflag_excl
-import okio.internal.preview1.oflag_trunc
-import okio.internal.preview1.oflags
-import okio.internal.preview1.path_create_directory
-import okio.internal.preview1.path_filestat_get
-import okio.internal.preview1.path_open
-import okio.internal.preview1.path_readlink
-import okio.internal.preview1.path_remove_directory
-import okio.internal.preview1.path_rename
-import okio.internal.preview1.path_symlink
-import okio.internal.preview1.path_unlink_file
-import okio.internal.preview1.right_fd_filestat_get
-import okio.internal.preview1.right_fd_filestat_set_size
-import okio.internal.preview1.right_fd_read
-import okio.internal.preview1.right_fd_readdir
-import okio.internal.preview1.right_fd_seek
-import okio.internal.preview1.right_fd_sync
-import okio.internal.preview1.right_fd_write
-import okio.internal.preview1.rights
-import okio.internal.readString
-import okio.internal.write
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.internal.ErrnoException
+import com.squareup.wire.shaded.okio.internal.fdClose
+import com.squareup.wire.shaded.okio.internal.preview1.Errno
+import com.squareup.wire.shaded.okio.internal.preview1.dirnamelen
+import com.squareup.wire.shaded.okio.internal.preview1.fd
+import com.squareup.wire.shaded.okio.internal.preview1.fd_prestat_dir_name
+import com.squareup.wire.shaded.okio.internal.preview1.fd_prestat_get
+import com.squareup.wire.shaded.okio.internal.preview1.fd_readdir
+import com.squareup.wire.shaded.okio.internal.preview1.fdflags
+import com.squareup.wire.shaded.okio.internal.preview1.fdflags_append
+import com.squareup.wire.shaded.okio.internal.preview1.filetype
+import com.squareup.wire.shaded.okio.internal.preview1.filetype_directory
+import com.squareup.wire.shaded.okio.internal.preview1.filetype_regular_file
+import com.squareup.wire.shaded.okio.internal.preview1.filetype_symbolic_link
+import com.squareup.wire.shaded.okio.internal.preview1.oflag_creat
+import com.squareup.wire.shaded.okio.internal.preview1.oflag_directory
+import com.squareup.wire.shaded.okio.internal.preview1.oflag_excl
+import com.squareup.wire.shaded.okio.internal.preview1.oflag_trunc
+import com.squareup.wire.shaded.okio.internal.preview1.oflags
+import com.squareup.wire.shaded.okio.internal.preview1.path_create_directory
+import com.squareup.wire.shaded.okio.internal.preview1.path_filestat_get
+import com.squareup.wire.shaded.okio.internal.preview1.path_open
+import com.squareup.wire.shaded.okio.internal.preview1.path_readlink
+import com.squareup.wire.shaded.okio.internal.preview1.path_remove_directory
+import com.squareup.wire.shaded.okio.internal.preview1.path_rename
+import com.squareup.wire.shaded.okio.internal.preview1.path_symlink
+import com.squareup.wire.shaded.okio.internal.preview1.path_unlink_file
+import com.squareup.wire.shaded.okio.internal.preview1.right_fd_filestat_get
+import com.squareup.wire.shaded.okio.internal.preview1.right_fd_filestat_set_size
+import com.squareup.wire.shaded.okio.internal.preview1.right_fd_read
+import com.squareup.wire.shaded.okio.internal.preview1.right_fd_readdir
+import com.squareup.wire.shaded.okio.internal.preview1.right_fd_seek
+import com.squareup.wire.shaded.okio.internal.preview1.right_fd_sync
+import com.squareup.wire.shaded.okio.internal.preview1.right_fd_write
+import com.squareup.wire.shaded.okio.internal.preview1.rights
+import com.squareup.wire.shaded.okio.internal.readString
+import com.squareup.wire.shaded.okio.internal.write
 
 /**
  * Use [WASI] to implement the Okio file system interface.
@@ -502,7 +502,7 @@ object WasiFileSystem : FileSystem() {
     }
   }
 
-  override fun toString() = "okio.WasiFileSystem"
+  override fun toString() = "com.squareup.wire.shaded.okio.WasiFileSystem"
 
   private class Preopen(
     val path: Path,

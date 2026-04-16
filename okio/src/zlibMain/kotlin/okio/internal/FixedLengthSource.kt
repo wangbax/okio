@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
-import okio.Buffer
-import okio.ForwardingSource
-import okio.IOException
-import okio.Source
+import com.squareup.wire.shaded.okio.Buffer
+import com.squareup.wire.shaded.okio.ForwardingSource
+import com.squareup.wire.shaded.okio.IOException
+import com.squareup.wire.shaded.okio.Source
 
 /**
  * A source that returns [size] bytes of [delegate].

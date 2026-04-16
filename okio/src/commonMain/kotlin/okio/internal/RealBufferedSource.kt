@@ -19,20 +19,20 @@
 
 @file:JvmName("-RealBufferedSource") // A leading '-' hides this class from Java.
 
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
 import kotlin.jvm.JvmName
-import okio.Buffer
-import okio.BufferedSource
-import okio.ByteString
-import okio.EOFException
-import okio.Options
-import okio.PeekSource
-import okio.RealBufferedSource
-import okio.Segment
-import okio.Sink
-import okio.buffer
-import okio.checkOffsetAndCount
+import com.squareup.wire.shaded.okio.Buffer
+import com.squareup.wire.shaded.okio.BufferedSource
+import com.squareup.wire.shaded.okio.ByteString
+import com.squareup.wire.shaded.okio.EOFException
+import com.squareup.wire.shaded.okio.Options
+import com.squareup.wire.shaded.okio.PeekSource
+import com.squareup.wire.shaded.okio.RealBufferedSource
+import com.squareup.wire.shaded.okio.Segment
+import com.squareup.wire.shaded.okio.Sink
+import com.squareup.wire.shaded.okio.buffer
+import com.squareup.wire.shaded.okio.checkOffsetAndCount
 
 internal inline fun RealBufferedSource.commonRead(sink: Buffer, byteCount: Long): Long {
   require(byteCount >= 0L) { "byteCount < 0: $byteCount" }
@@ -140,7 +140,7 @@ internal inline fun RealBufferedSource.commonRead(sink: ByteArray, offset: Int, 
     if (read == -1L) return -1
   }
 
-  val toRead = okio.minOf(byteCount, buffer.size).toInt()
+  val toRead = com.squareup.wire.shaded.okio.minOf(byteCount, buffer.size).toInt()
   return buffer.read(sink, offset, toRead)
 }
 
@@ -208,7 +208,7 @@ internal inline fun RealBufferedSource.commonReadUtf8LineStrict(limit: Long): St
     return buffer.readUtf8Line(scanLength) // The line was 'limit' UTF-8 bytes followed by \r\n.
   }
   val data = Buffer()
-  buffer.copyTo(data, 0, okio.minOf(32, buffer.size))
+  buffer.copyTo(data, 0, com.squareup.wire.shaded.okio.minOf(32, buffer.size))
   throw EOFException(
     "\\n not found: limit=" + minOf(buffer.size, limit) +
       " content=" + data.readByteString().hex() + '…'.toString(),

@@ -13,42 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.IOException
 import java.io.InputStream
 import java.nio.ByteBuffer
 import java.nio.charset.Charset
-import okio.internal.commonClose
-import okio.internal.commonExhausted
-import okio.internal.commonIndexOf
-import okio.internal.commonIndexOfElement
-import okio.internal.commonPeek
-import okio.internal.commonRangeEquals
-import okio.internal.commonRead
-import okio.internal.commonReadAll
-import okio.internal.commonReadByte
-import okio.internal.commonReadByteArray
-import okio.internal.commonReadByteString
-import okio.internal.commonReadDecimalLong
-import okio.internal.commonReadFully
-import okio.internal.commonReadHexadecimalUnsignedLong
-import okio.internal.commonReadInt
-import okio.internal.commonReadIntLe
-import okio.internal.commonReadLong
-import okio.internal.commonReadLongLe
-import okio.internal.commonReadShort
-import okio.internal.commonReadShortLe
-import okio.internal.commonReadUtf8
-import okio.internal.commonReadUtf8CodePoint
-import okio.internal.commonReadUtf8Line
-import okio.internal.commonReadUtf8LineStrict
-import okio.internal.commonRequest
-import okio.internal.commonRequire
-import okio.internal.commonSelect
-import okio.internal.commonSkip
-import okio.internal.commonTimeout
-import okio.internal.commonToString
+import com.squareup.wire.shaded.okio.internal.commonClose
+import com.squareup.wire.shaded.okio.internal.commonExhausted
+import com.squareup.wire.shaded.okio.internal.commonIndexOf
+import com.squareup.wire.shaded.okio.internal.commonIndexOfElement
+import com.squareup.wire.shaded.okio.internal.commonPeek
+import com.squareup.wire.shaded.okio.internal.commonRangeEquals
+import com.squareup.wire.shaded.okio.internal.commonRead
+import com.squareup.wire.shaded.okio.internal.commonReadAll
+import com.squareup.wire.shaded.okio.internal.commonReadByte
+import com.squareup.wire.shaded.okio.internal.commonReadByteArray
+import com.squareup.wire.shaded.okio.internal.commonReadByteString
+import com.squareup.wire.shaded.okio.internal.commonReadDecimalLong
+import com.squareup.wire.shaded.okio.internal.commonReadFully
+import com.squareup.wire.shaded.okio.internal.commonReadHexadecimalUnsignedLong
+import com.squareup.wire.shaded.okio.internal.commonReadInt
+import com.squareup.wire.shaded.okio.internal.commonReadIntLe
+import com.squareup.wire.shaded.okio.internal.commonReadLong
+import com.squareup.wire.shaded.okio.internal.commonReadLongLe
+import com.squareup.wire.shaded.okio.internal.commonReadShort
+import com.squareup.wire.shaded.okio.internal.commonReadShortLe
+import com.squareup.wire.shaded.okio.internal.commonReadUtf8
+import com.squareup.wire.shaded.okio.internal.commonReadUtf8CodePoint
+import com.squareup.wire.shaded.okio.internal.commonReadUtf8Line
+import com.squareup.wire.shaded.okio.internal.commonReadUtf8LineStrict
+import com.squareup.wire.shaded.okio.internal.commonRequest
+import com.squareup.wire.shaded.okio.internal.commonRequire
+import com.squareup.wire.shaded.okio.internal.commonSelect
+import com.squareup.wire.shaded.okio.internal.commonSkip
+import com.squareup.wire.shaded.okio.internal.commonTimeout
+import com.squareup.wire.shaded.okio.internal.commonToString
 
 internal actual class RealBufferedSource actual constructor(
   @JvmField actual val source: Source,

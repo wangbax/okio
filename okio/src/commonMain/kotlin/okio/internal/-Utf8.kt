@@ -14,11 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
-import okio.ArrayIndexOutOfBoundsException
-import okio.processUtf16Chars
-import okio.processUtf8Bytes
+import com.squareup.wire.shaded.okio.ArrayIndexOutOfBoundsException
+import com.squareup.wire.shaded.okio.processUtf16Chars
+import com.squareup.wire.shaded.okio.processUtf8Bytes
 
 // TODO For benchmarking, these methods need to be available but preferably invisible
 // to everything else. Putting them in this file, `-Utf8.kt`, makes them invisible to

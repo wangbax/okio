@@ -16,11 +16,11 @@
 
 @file:JvmName("-BufferedSource") // A leading '-' hides this class from Java.
 
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
 import kotlin.jvm.JvmName
-import okio.BufferedSource
-import okio.TypedOptions
+import com.squareup.wire.shaded.okio.BufferedSource
+import com.squareup.wire.shaded.okio.TypedOptions
 
 internal inline fun <T : Any> BufferedSource.commonSelect(options: TypedOptions<T>): T? {
   return when (val index = select(options.options)) {

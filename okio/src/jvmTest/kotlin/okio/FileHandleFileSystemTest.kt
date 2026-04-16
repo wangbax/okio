@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import com.google.common.jimfs.Configuration
 import com.google.common.jimfs.Jimfs
 import java.nio.file.FileSystems
 import kotlinx.datetime.Clock
-import okio.FileHandleFileSystemTest.FileHandleTestingFileSystem
-import okio.FileSystem.Companion.asOkioFileSystem
+import com.squareup.wire.shaded.okio.FileHandleFileSystemTest.FileHandleTestingFileSystem
+import com.squareup.wire.shaded.okio.FileSystem.Companion.asOkioFileSystem
 
 /**
  * Run a regular file system test, but use [FileHandle] for more file system operations than usual.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.squareup.okio.benchmarks;
+package com.squareup.wire.shaded.okio.benchmarks;
 
 import java.io.EOFException;
 import java.io.File;
@@ -40,11 +40,11 @@ import org.openjdk.jmh.annotations.TearDown;
 import org.openjdk.jmh.annotations.Threads;
 import org.openjdk.jmh.annotations.Warmup;
 
-import okio.Buffer;
-import okio.BufferedSource;
-import okio.Okio;
-import okio.Sink;
-import okio.Timeout;
+import com.squareup.wire.shaded.okio.Buffer;
+import com.squareup.wire.shaded.okio.BufferedSource;
+import com.squareup.wire.shaded.okio.Okio;
+import com.squareup.wire.shaded.okio.Sink;
+import com.squareup.wire.shaded.okio.Timeout;
 
 import static java.util.Objects.requireNonNull;
 
@@ -57,7 +57,7 @@ import static java.util.Objects.requireNonNull;
 public class BufferPerformanceBenchmark {
 
   public static final File OriginPath =
-      new File(System.getProperty("okio.bench.origin.path", "/dev/urandom"));
+      new File(System.getProperty("com.squareup.wire.shaded.okio.bench.origin.path", "/dev/urandom"));
 
   /* Test Workload
    *

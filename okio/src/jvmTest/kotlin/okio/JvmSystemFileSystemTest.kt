@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import com.google.common.jimfs.Configuration
 import com.google.common.jimfs.Jimfs
@@ -23,7 +23,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.fail
 import kotlinx.datetime.Clock
-import okio.FileSystem.Companion.asOkioFileSystem
+import com.squareup.wire.shaded.okio.FileSystem.Companion.asOkioFileSystem
 import org.junit.Test
 
 /**

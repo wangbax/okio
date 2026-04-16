@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package okio
+package com.squareup.wire.shaded.okio
 
-import okio.ByteString.Companion.decodeHex
-import okio.ByteString.Companion.encodeUtf8
-import okio.internal.commonAsUtf8ToByteArray
+import com.squareup.wire.shaded.okio.ByteString.Companion.decodeHex
+import com.squareup.wire.shaded.okio.ByteString.Companion.encodeUtf8
+import com.squareup.wire.shaded.okio.internal.commonAsUtf8ToByteArray
 
 internal interface ByteStringFactory {
   fun decodeHex(hex: String): ByteString

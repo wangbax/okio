@@ -15,25 +15,25 @@
  */
 @file:JvmName("-ByteString") // A leading '-' hides this class from Java.
 
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
 import kotlin.jvm.JvmName
 import kotlin.native.concurrent.SharedImmutable
-import okio.BASE64_URL_SAFE
-import okio.Buffer
-import okio.ByteString
-import okio.REPLACEMENT_CODE_POINT
-import okio.and
-import okio.arrayRangeEquals
-import okio.asUtf8ToByteArray
-import okio.checkOffsetAndCount
-import okio.decodeBase64ToArray
-import okio.encodeBase64
-import okio.isIsoControl
-import okio.processUtf8CodePoints
-import okio.resolveDefaultParameter
-import okio.shr
-import okio.toUtf8String
+import com.squareup.wire.shaded.okio.BASE64_URL_SAFE
+import com.squareup.wire.shaded.okio.Buffer
+import com.squareup.wire.shaded.okio.ByteString
+import com.squareup.wire.shaded.okio.REPLACEMENT_CODE_POINT
+import com.squareup.wire.shaded.okio.and
+import com.squareup.wire.shaded.okio.arrayRangeEquals
+import com.squareup.wire.shaded.okio.asUtf8ToByteArray
+import com.squareup.wire.shaded.okio.checkOffsetAndCount
+import com.squareup.wire.shaded.okio.decodeBase64ToArray
+import com.squareup.wire.shaded.okio.encodeBase64
+import com.squareup.wire.shaded.okio.isIsoControl
+import com.squareup.wire.shaded.okio.processUtf8CodePoints
+import com.squareup.wire.shaded.okio.resolveDefaultParameter
+import com.squareup.wire.shaded.okio.shr
+import com.squareup.wire.shaded.okio.toUtf8String
 
 // TODO Kotlin's expect classes can't have default implementations, so platform implementations
 // have to call these functions. Remove all this nonsense when expect class allow actual code.

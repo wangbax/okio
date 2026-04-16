@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.get
-import okio.Path.Companion.toPath
-import okio.internal.toPath
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.internal.toPath
 import platform.posix.EEXIST
 import platform.posix.closedir
 import platform.posix.dirent

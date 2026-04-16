@@ -1,1 +1,1 @@
--keep class okio.** { *; }
+-keep class com.squareup.wire.shaded.okio.** { *; }

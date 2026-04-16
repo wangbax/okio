@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.IOException
 import java.io.ObjectInputStream
@@ -24,19 +24,19 @@ import java.util.Random
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
-import okio.ByteString.Companion.encodeUtf8
+import com.squareup.wire.shaded.okio.ByteString.Companion.encodeUtf8
 import org.junit.Assume
 
 object TestUtil {
   // Necessary to make an internal member visible to Java.
   @JvmField val SEGMENT_POOL_MAX_SIZE = SegmentPool.MAX_SIZE
   const val SEGMENT_SIZE = Segment.SIZE
-  const val REPLACEMENT_CODE_POINT: Int = okio.REPLACEMENT_CODE_POINT
+  const val REPLACEMENT_CODE_POINT: Int = com.squareup.wire.shaded.okio.REPLACEMENT_CODE_POINT
 
   @JvmStatic fun segmentPoolByteCount() = SegmentPool.byteCount
 
   @JvmStatic
-  fun segmentSizes(buffer: Buffer): List<Int> = okio.segmentSizes(buffer)
+  fun segmentSizes(buffer: Buffer): List<Int> = com.squareup.wire.shaded.okio.segmentSizes(buffer)
 
   @JvmStatic
   fun assertByteArraysEquals(a: ByteArray, b: ByteArray) {

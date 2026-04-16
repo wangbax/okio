@@ -63,7 +63,7 @@
  */
 @file:JvmName("Utf8")
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads

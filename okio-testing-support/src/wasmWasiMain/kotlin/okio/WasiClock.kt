@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.wasm.unsafe.UnsafeWasmMemoryApi
 import kotlin.wasm.unsafe.withScopedMemoryAllocator
-import okio.internal.preview1.clock_time_get
-import okio.internal.preview1.clockid_realtime
+import com.squareup.wire.shaded.okio.internal.preview1.clock_time_get
+import com.squareup.wire.shaded.okio.internal.preview1.clockid_realtime
 
 object WasiClock : Clock {
   @OptIn(UnsafeWasmMemoryApi::class)

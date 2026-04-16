@@ -1,4 +1,4 @@
-package okio
+package com.squareup.wire.shaded.okio
 
 /*
  * The current process's host file system. Use this instance directly, or dependency inject a

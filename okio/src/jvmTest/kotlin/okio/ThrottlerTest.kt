@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.test.Ignore
-import okio.TestUtil.randomSource
+import com.squareup.wire.shaded.okio.TestUtil.randomSource
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

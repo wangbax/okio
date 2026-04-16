@@ -15,16 +15,16 @@
  */
 @file:JvmName("-FileSystem") // A leading '-' hides this class from Java.
 
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
 import kotlin.jvm.JvmName
-import okio.FileMetadata
-import okio.FileNotFoundException
-import okio.FileSystem
-import okio.IOException
-import okio.Path
-import okio.buffer
-import okio.use
+import com.squareup.wire.shaded.okio.FileMetadata
+import com.squareup.wire.shaded.okio.FileNotFoundException
+import com.squareup.wire.shaded.okio.FileSystem
+import com.squareup.wire.shaded.okio.IOException
+import com.squareup.wire.shaded.okio.Path
+import com.squareup.wire.shaded.okio.buffer
+import com.squareup.wire.shaded.okio.use
 
 /**
  * Returns metadata of the file, directory, or object identified by [path].

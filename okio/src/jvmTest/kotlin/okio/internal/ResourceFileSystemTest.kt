@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
 import java.net.URL
 import java.net.URLClassLoader
@@ -22,16 +22,16 @@ import kotlin.reflect.KClass
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.fail
-import okio.BufferedSource
-import okio.ByteString
-import okio.FileNotFoundException
-import okio.FileSystem
-import okio.ForwardingFileSystem
-import okio.IOException
-import okio.Path
-import okio.Path.Companion.toPath
-import okio.ZipBuilder
-import okio.randomToken
+import com.squareup.wire.shaded.okio.BufferedSource
+import com.squareup.wire.shaded.okio.ByteString
+import com.squareup.wire.shaded.okio.FileNotFoundException
+import com.squareup.wire.shaded.okio.FileSystem
+import com.squareup.wire.shaded.okio.ForwardingFileSystem
+import com.squareup.wire.shaded.okio.IOException
+import com.squareup.wire.shaded.okio.Path
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.ZipBuilder
+import com.squareup.wire.shaded.okio.randomToken
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 

@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.samples;
+package com.squareup.wire.shaded.okio.samples;
 
 import java.io.IOException;
-import okio.Buffer;
-import okio.BufferedSource;
-import okio.ForwardingSource;
-import okio.Okio;
-import okio.Source;
+import com.squareup.wire.shaded.okio.Buffer;
+import com.squareup.wire.shaded.okio.BufferedSource;
+import com.squareup.wire.shaded.okio.ForwardingSource;
+import com.squareup.wire.shaded.okio.Okio;
+import com.squareup.wire.shaded.okio.Source;
 
 /**
  * Builds a buffered source that can rewind to a marked position earlier in the stream.

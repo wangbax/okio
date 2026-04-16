@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import platform.zlib.Z_FINISH
 import platform.zlib.Z_NO_FLUSH

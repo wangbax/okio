@@ -18,7 +18,7 @@
 @file:JvmMultifileClass
 @file:JvmName("Okio")
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName

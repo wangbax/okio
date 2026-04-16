@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.util.Random
-import okio.TestUtil.bufferWithRandomSegmentLayout
-import okio.TestUtil.bufferWithSegments
+import com.squareup.wire.shaded.okio.TestUtil.bufferWithRandomSegmentLayout
+import com.squareup.wire.shaded.okio.TestUtil.bufferWithSegments
 
 enum class BufferFactory {
   EMPTY {

@@ -1,6 +1,6 @@
 @file:JvmName("SystemFileSystem")
 
-package okio
+package com.squareup.wire.shaded.okio
 
 /*
  * JVM and native platforms do offer a [SYSTEM] [FileSystem], however we cannot refine an 'expect' companion object.

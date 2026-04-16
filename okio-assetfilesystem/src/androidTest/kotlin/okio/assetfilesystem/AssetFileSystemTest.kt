@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.assetfilesystem
+package com.squareup.wire.shaded.okio.assetfilesystem
 
 import androidx.test.platform.app.InstrumentationRegistry
 import assertk.assertThat
@@ -27,13 +27,13 @@ import assertk.assertions.isNotNull
 import assertk.assertions.isNull
 import assertk.assertions.isTrue
 import kotlin.test.assertFailsWith
-import okio.Buffer
-import okio.BufferedSource
-import okio.FileHandle
-import okio.FileNotFoundException
-import okio.IOException
-import okio.Path.Companion.toPath
-import okio.buffer
+import com.squareup.wire.shaded.okio.Buffer
+import com.squareup.wire.shaded.okio.BufferedSource
+import com.squareup.wire.shaded.okio.FileHandle
+import com.squareup.wire.shaded.okio.FileNotFoundException
+import com.squareup.wire.shaded.okio.IOException
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.buffer
 import org.junit.Test
 
 class AssetFileSystemTest {

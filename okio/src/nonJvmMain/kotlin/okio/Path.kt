@@ -13,26 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
-import okio.internal.commonCompareTo
-import okio.internal.commonEquals
-import okio.internal.commonHashCode
-import okio.internal.commonIsAbsolute
-import okio.internal.commonIsRelative
-import okio.internal.commonIsRoot
-import okio.internal.commonName
-import okio.internal.commonNameBytes
-import okio.internal.commonNormalized
-import okio.internal.commonParent
-import okio.internal.commonRelativeTo
-import okio.internal.commonResolve
-import okio.internal.commonRoot
-import okio.internal.commonSegments
-import okio.internal.commonSegmentsBytes
-import okio.internal.commonToPath
-import okio.internal.commonToString
-import okio.internal.commonVolumeLetter
+import com.squareup.wire.shaded.okio.internal.commonCompareTo
+import com.squareup.wire.shaded.okio.internal.commonEquals
+import com.squareup.wire.shaded.okio.internal.commonHashCode
+import com.squareup.wire.shaded.okio.internal.commonIsAbsolute
+import com.squareup.wire.shaded.okio.internal.commonIsRelative
+import com.squareup.wire.shaded.okio.internal.commonIsRoot
+import com.squareup.wire.shaded.okio.internal.commonName
+import com.squareup.wire.shaded.okio.internal.commonNameBytes
+import com.squareup.wire.shaded.okio.internal.commonNormalized
+import com.squareup.wire.shaded.okio.internal.commonParent
+import com.squareup.wire.shaded.okio.internal.commonRelativeTo
+import com.squareup.wire.shaded.okio.internal.commonResolve
+import com.squareup.wire.shaded.okio.internal.commonRoot
+import com.squareup.wire.shaded.okio.internal.commonSegments
+import com.squareup.wire.shaded.okio.internal.commonSegmentsBytes
+import com.squareup.wire.shaded.okio.internal.commonToPath
+import com.squareup.wire.shaded.okio.internal.commonToString
+import com.squareup.wire.shaded.okio.internal.commonVolumeLetter
 
 actual class Path internal actual constructor(
   internal actual val bytes: ByteString,

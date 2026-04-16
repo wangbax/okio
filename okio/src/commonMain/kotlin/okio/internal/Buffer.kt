@@ -18,28 +18,28 @@
 // TODO move to Buffer class: https://youtrack.jetbrains.com/issue/KT-20427
 @file:Suppress("NOTHING_TO_INLINE")
 
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
 import kotlin.jvm.JvmName
 import kotlin.native.concurrent.SharedImmutable
-import okio.ArrayIndexOutOfBoundsException
-import okio.Buffer
-import okio.Buffer.UnsafeCursor
-import okio.ByteString
-import okio.EOFException
-import okio.Options
-import okio.REPLACEMENT_CODE_POINT
-import okio.Segment
-import okio.SegmentPool
-import okio.SegmentedByteString
-import okio.Sink
-import okio.Source
-import okio.and
-import okio.asUtf8ToByteArray
-import okio.checkOffsetAndCount
-import okio.minOf
-import okio.resolveDefaultParameter
-import okio.toHexString
+import com.squareup.wire.shaded.okio.ArrayIndexOutOfBoundsException
+import com.squareup.wire.shaded.okio.Buffer
+import com.squareup.wire.shaded.okio.Buffer.UnsafeCursor
+import com.squareup.wire.shaded.okio.ByteString
+import com.squareup.wire.shaded.okio.EOFException
+import com.squareup.wire.shaded.okio.Options
+import com.squareup.wire.shaded.okio.REPLACEMENT_CODE_POINT
+import com.squareup.wire.shaded.okio.Segment
+import com.squareup.wire.shaded.okio.SegmentPool
+import com.squareup.wire.shaded.okio.SegmentedByteString
+import com.squareup.wire.shaded.okio.Sink
+import com.squareup.wire.shaded.okio.Source
+import com.squareup.wire.shaded.okio.and
+import com.squareup.wire.shaded.okio.asUtf8ToByteArray
+import com.squareup.wire.shaded.okio.checkOffsetAndCount
+import com.squareup.wire.shaded.okio.minOf
+import com.squareup.wire.shaded.okio.resolveDefaultParameter
+import com.squareup.wire.shaded.okio.toHexString
 
 @SharedImmutable
 internal val HEX_DIGIT_BYTES = "0123456789abcdef".asUtf8ToByteArray()
@@ -1333,7 +1333,7 @@ internal inline fun Buffer.commonIndexOf(bytes: ByteString, fromIndex: Long): Lo
     while (offset < resultLimit) {
       // Scan through the current segment.
       val data = s.data
-      val segmentLimit = okio.minOf(s.limit, s.pos + resultLimit - offset).toInt()
+      val segmentLimit = com.squareup.wire.shaded.okio.minOf(s.limit, s.pos + resultLimit - offset).toInt()
       for (pos in (s.pos + fromIndex - offset).toInt() until segmentLimit) {
         if (data[pos] == b0 && rangeEquals(s, pos + 1, targetByteArray, 1, bytesSize)) {
           return pos - s.pos + offset
@@ -1654,7 +1654,7 @@ internal inline fun UnsafeCursor.commonResizeBuffer(newSize: Long): Long {
       val tailSize = tail!!.limit - tail.pos
       if (tailSize <= bytesToSubtract) {
         buffer.head = tail.pop()
-        okio.SegmentPool.recycle(tail)
+        com.squareup.wire.shaded.okio.SegmentPool.recycle(tail)
         bytesToSubtract -= tailSize.toLong()
       } else {
         tail.limit -= bytesToSubtract.toInt()

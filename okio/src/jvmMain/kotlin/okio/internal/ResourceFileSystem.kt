@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
 import java.io.File
 import java.io.IOException
 import java.net.JarURLConnection
 import java.net.URI
 import java.net.URL
-import okio.FileHandle
-import okio.FileMetadata
-import okio.FileNotFoundException
-import okio.FileSystem
-import okio.Path
-import okio.Path.Companion.toOkioPath
-import okio.Path.Companion.toPath
-import okio.Sink
-import okio.Source
-import okio.source
+import com.squareup.wire.shaded.okio.FileHandle
+import com.squareup.wire.shaded.okio.FileMetadata
+import com.squareup.wire.shaded.okio.FileNotFoundException
+import com.squareup.wire.shaded.okio.FileSystem
+import com.squareup.wire.shaded.okio.Path
+import com.squareup.wire.shaded.okio.Path.Companion.toOkioPath
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.Sink
+import com.squareup.wire.shaded.okio.Source
+import com.squareup.wire.shaded.okio.source
 
 /**
  * A file system exposing Java classpath resources. It is equivalent to the files returned by

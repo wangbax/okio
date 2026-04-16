@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlinx.cinterop.ByteVarOf
 import kotlinx.cinterop.COpaquePointer
@@ -21,7 +21,7 @@ import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.get
 import kotlinx.cinterop.readBytes
 import kotlinx.cinterop.set
-import okio.ByteString.Companion.EMPTY
+import com.squareup.wire.shaded.okio.ByteString.Companion.EMPTY
 import platform.posix.ENOENT
 import platform.posix.strerror
 

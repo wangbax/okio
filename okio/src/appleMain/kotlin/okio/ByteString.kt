@@ -14,45 +14,45 @@
  * limitations under the License.
  */
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.experimental.ExperimentalNativeApi
 import kotlinx.cinterop.UnsafeNumber
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.usePinned
-import okio.internal.HashFunction
-import okio.internal.Hmac
-import okio.internal.Md5
-import okio.internal.Sha1
-import okio.internal.Sha256
-import okio.internal.Sha512
-import okio.internal.commonBase64
-import okio.internal.commonBase64Url
-import okio.internal.commonCompareTo
-import okio.internal.commonCopyInto
-import okio.internal.commonDecodeBase64
-import okio.internal.commonDecodeHex
-import okio.internal.commonEncodeUtf8
-import okio.internal.commonEndsWith
-import okio.internal.commonEquals
-import okio.internal.commonGetByte
-import okio.internal.commonGetSize
-import okio.internal.commonHashCode
-import okio.internal.commonHex
-import okio.internal.commonIndexOf
-import okio.internal.commonInternalArray
-import okio.internal.commonLastIndexOf
-import okio.internal.commonOf
-import okio.internal.commonRangeEquals
-import okio.internal.commonStartsWith
-import okio.internal.commonSubstring
-import okio.internal.commonToAsciiLowercase
-import okio.internal.commonToAsciiUppercase
-import okio.internal.commonToByteArray
-import okio.internal.commonToByteString
-import okio.internal.commonToString
-import okio.internal.commonUtf8
-import okio.internal.commonWrite
+import com.squareup.wire.shaded.okio.internal.HashFunction
+import com.squareup.wire.shaded.okio.internal.Hmac
+import com.squareup.wire.shaded.okio.internal.Md5
+import com.squareup.wire.shaded.okio.internal.Sha1
+import com.squareup.wire.shaded.okio.internal.Sha256
+import com.squareup.wire.shaded.okio.internal.Sha512
+import com.squareup.wire.shaded.okio.internal.commonBase64
+import com.squareup.wire.shaded.okio.internal.commonBase64Url
+import com.squareup.wire.shaded.okio.internal.commonCompareTo
+import com.squareup.wire.shaded.okio.internal.commonCopyInto
+import com.squareup.wire.shaded.okio.internal.commonDecodeBase64
+import com.squareup.wire.shaded.okio.internal.commonDecodeHex
+import com.squareup.wire.shaded.okio.internal.commonEncodeUtf8
+import com.squareup.wire.shaded.okio.internal.commonEndsWith
+import com.squareup.wire.shaded.okio.internal.commonEquals
+import com.squareup.wire.shaded.okio.internal.commonGetByte
+import com.squareup.wire.shaded.okio.internal.commonGetSize
+import com.squareup.wire.shaded.okio.internal.commonHashCode
+import com.squareup.wire.shaded.okio.internal.commonHex
+import com.squareup.wire.shaded.okio.internal.commonIndexOf
+import com.squareup.wire.shaded.okio.internal.commonInternalArray
+import com.squareup.wire.shaded.okio.internal.commonLastIndexOf
+import com.squareup.wire.shaded.okio.internal.commonOf
+import com.squareup.wire.shaded.okio.internal.commonRangeEquals
+import com.squareup.wire.shaded.okio.internal.commonStartsWith
+import com.squareup.wire.shaded.okio.internal.commonSubstring
+import com.squareup.wire.shaded.okio.internal.commonToAsciiLowercase
+import com.squareup.wire.shaded.okio.internal.commonToAsciiUppercase
+import com.squareup.wire.shaded.okio.internal.commonToByteArray
+import com.squareup.wire.shaded.okio.internal.commonToByteString
+import com.squareup.wire.shaded.okio.internal.commonToString
+import com.squareup.wire.shaded.okio.internal.commonUtf8
+import com.squareup.wire.shaded.okio.internal.commonWrite
 import platform.Foundation.NSData
 import platform.posix.memcpy
 
@@ -214,7 +214,7 @@ internal actual constructor(
 
 @Deprecated(
   message = "Moved to ByteString companion object",
-  replaceWith = ReplaceWith("this.toByteString()", "okio.ByteString.Companion.toByteString"),
+  replaceWith = ReplaceWith("this.toByteString()", "com.squareup.wire.shaded.okio.ByteString.Companion.toByteString"),
 )
 fun NSData.toByteString(): ByteString {
   with(ByteString) {

@@ -15,7 +15,7 @@
  */
 @file:Suppress("NOTHING_TO_INLINE") // Aliases to public API.
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.util.zip.Deflater
 

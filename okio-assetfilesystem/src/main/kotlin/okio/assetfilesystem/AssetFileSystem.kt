@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.assetfilesystem
+package com.squareup.wire.shaded.okio.assetfilesystem
 
 import android.content.res.AssetManager
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
-import okio.FileHandle
-import okio.FileMetadata
-import okio.FileSystem
-import okio.Path
-import okio.Path.Companion.toPath
-import okio.Sink
-import okio.Source
-import okio.source
+import com.squareup.wire.shaded.okio.FileHandle
+import com.squareup.wire.shaded.okio.FileMetadata
+import com.squareup.wire.shaded.okio.FileSystem
+import com.squareup.wire.shaded.okio.Path
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.Sink
+import com.squareup.wire.shaded.okio.Source
+import com.squareup.wire.shaded.okio.source
 
 /**
  * Expose this [AssetManager] as an Okio [FileSystem].

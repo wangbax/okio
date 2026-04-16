@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.EOFException
 import java.nio.ByteBuffer
@@ -21,14 +21,14 @@ import java.nio.charset.Charset
 import java.util.Arrays
 import kotlin.text.Charsets.US_ASCII
 import kotlin.text.Charsets.UTF_8
-import okio.ByteString.Companion.decodeHex
-import okio.ByteString.Companion.encodeUtf8
-import okio.Options.Companion.of
-import okio.TestUtil.SEGMENT_SIZE
-import okio.TestUtil.assertByteArrayEquals
-import okio.TestUtil.assertByteArraysEquals
-import okio.TestUtil.randomBytes
-import okio.TestUtil.segmentSizes
+import com.squareup.wire.shaded.okio.ByteString.Companion.decodeHex
+import com.squareup.wire.shaded.okio.ByteString.Companion.encodeUtf8
+import com.squareup.wire.shaded.okio.Options.Companion.of
+import com.squareup.wire.shaded.okio.TestUtil.SEGMENT_SIZE
+import com.squareup.wire.shaded.okio.TestUtil.assertByteArrayEquals
+import com.squareup.wire.shaded.okio.TestUtil.assertByteArraysEquals
+import com.squareup.wire.shaded.okio.TestUtil.randomBytes
+import com.squareup.wire.shaded.okio.TestUtil.segmentSizes
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.util.TimeZone
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
-import okio.Path.Companion.toOkioPath
-import okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.Path.Companion.toOkioPath
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
 
 actual fun assertRelativeTo(
   a: Path,
@@ -50,7 +50,7 @@ actual fun assertRelativeToFails(
       a.toNioPath().relativize(b.toNioPath())
     }
   }
-  // Return okio.
+  // Return com.squareup.wire.shaded.okio.
   return assertFailsWith { b.relativeTo(a) }
 }
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.squareup.okio.benchmarks;
+package com.squareup.wire.shaded.okio.benchmarks;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -34,8 +34,8 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.runner.RunnerException;
 
-import okio.Buffer;
-import okio.ByteString;
+import com.squareup.wire.shaded.okio.Buffer;
+import com.squareup.wire.shaded.okio.ByteString;
 
 @Fork(1)
 @Warmup(iterations = 5, time = 2)

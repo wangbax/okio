@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
-import okio.ByteString.Companion.decodeBase64
-import okio.ByteString.Companion.decodeHex
-import okio.ByteString.Companion.toByteString
+import com.squareup.wire.shaded.okio.ByteString.Companion.decodeBase64
+import com.squareup.wire.shaded.okio.ByteString.Companion.decodeHex
+import com.squareup.wire.shaded.okio.ByteString.Companion.toByteString
 
 class InflaterTest {
   @Test

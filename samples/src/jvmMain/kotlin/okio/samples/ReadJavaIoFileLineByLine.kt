@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.samples
+package com.squareup.wire.shaded.okio.samples
 
 import java.io.File
 import java.io.IOException
-import okio.buffer
-import okio.source
+import com.squareup.wire.shaded.okio.buffer
+import com.squareup.wire.shaded.okio.source
 
 @Throws(IOException::class)
 fun readLines(file: File) {

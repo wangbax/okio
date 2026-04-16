@@ -15,7 +15,7 @@
  */
 @file:JvmName("-InflaterSourceExtensions")
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.jvm.JvmName
 

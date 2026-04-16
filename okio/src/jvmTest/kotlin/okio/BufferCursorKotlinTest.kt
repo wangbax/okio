@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotSame
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
-import okio.Buffer.UnsafeCursor
-import okio.TestUtil.deepCopy
+import com.squareup.wire.shaded.okio.Buffer.UnsafeCursor
+import com.squareup.wire.shaded.okio.TestUtil.deepCopy
 import org.junit.Assume.assumeTrue
 import org.junit.Test
 import org.junit.runner.RunWith
