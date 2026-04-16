@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 /**
  * Supplies a stream of bytes. Use this interface to read data from wherever it's located: from the

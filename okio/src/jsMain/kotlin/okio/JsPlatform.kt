@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 /*
  * This file exposes Node.js `os` and `path` APIs to Kotlin/JS, using reasonable default behaviors

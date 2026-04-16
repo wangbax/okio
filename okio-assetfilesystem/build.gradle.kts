@@ -11,7 +11,7 @@ plugins {
 }
 
 android {
-  namespace = "okio.assetfilesystem"
+  namespace = "com.squareup.wire.shaded.okio.assetfilesystem"
   compileSdk = 33
 
   defaultConfig {

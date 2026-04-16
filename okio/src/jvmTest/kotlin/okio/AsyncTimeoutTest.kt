@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.IOException
 import java.io.InterruptedIOException
 import java.util.Random
 import java.util.concurrent.LinkedBlockingDeque
 import java.util.concurrent.TimeUnit
-import okio.ByteString.Companion.of
-import okio.TestUtil.bufferWithRandomSegmentLayout
+import com.squareup.wire.shaded.okio.ByteString.Companion.of
+import com.squareup.wire.shaded.okio.TestUtil.bufferWithRandomSegmentLayout
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

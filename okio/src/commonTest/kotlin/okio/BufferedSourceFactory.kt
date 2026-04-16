@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package okio
+package com.squareup.wire.shaded.okio
 
 interface BufferedSourceFactory {
   class Pipe(

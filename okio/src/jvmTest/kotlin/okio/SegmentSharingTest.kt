@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
-import okio.ByteString.Companion.encodeUtf8
-import okio.TestUtil.assertEquivalent
-import okio.TestUtil.bufferWithSegments
-import okio.TestUtil.takeAllPoolSegments
+import com.squareup.wire.shaded.okio.ByteString.Companion.encodeUtf8
+import com.squareup.wire.shaded.okio.TestUtil.assertEquivalent
+import com.squareup.wire.shaded.okio.TestUtil.bufferWithSegments
+import com.squareup.wire.shaded.okio.TestUtil.takeAllPoolSegments
 import org.junit.Test
 
 /** Tests behavior optimized by sharing segments between buffers and byte strings.  */

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -23,15 +23,15 @@ import kotlin.text.Charsets.US_ASCII
 import kotlin.text.Charsets.UTF_16BE
 import kotlin.text.Charsets.UTF_32BE
 import kotlin.text.Charsets.UTF_8
-import okio.ByteString.Companion.decodeHex
-import okio.ByteString.Companion.encode
-import okio.ByteString.Companion.encodeUtf8
-import okio.ByteString.Companion.readByteString
-import okio.ByteString.Companion.toByteString
-import okio.TestUtil.assertByteArraysEquals
-import okio.TestUtil.assertEquivalent
-import okio.TestUtil.makeSegments
-import okio.TestUtil.reserialize
+import com.squareup.wire.shaded.okio.ByteString.Companion.decodeHex
+import com.squareup.wire.shaded.okio.ByteString.Companion.encode
+import com.squareup.wire.shaded.okio.ByteString.Companion.encodeUtf8
+import com.squareup.wire.shaded.okio.ByteString.Companion.readByteString
+import com.squareup.wire.shaded.okio.ByteString.Companion.toByteString
+import com.squareup.wire.shaded.okio.TestUtil.assertByteArraysEquals
+import com.squareup.wire.shaded.okio.TestUtil.assertEquivalent
+import com.squareup.wire.shaded.okio.TestUtil.makeSegments
+import com.squareup.wire.shaded.okio.TestUtil.reserialize
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith

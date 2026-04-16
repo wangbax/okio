@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -22,12 +22,12 @@ import java.io.InputStream
 import java.util.Arrays
 import java.util.Random
 import kotlin.text.Charsets.UTF_8
-import okio.ByteString.Companion.decodeHex
-import okio.TestUtil.SEGMENT_POOL_MAX_SIZE
-import okio.TestUtil.SEGMENT_SIZE
-import okio.TestUtil.bufferWithRandomSegmentLayout
-import okio.TestUtil.segmentPoolByteCount
-import okio.TestUtil.segmentSizes
+import com.squareup.wire.shaded.okio.ByteString.Companion.decodeHex
+import com.squareup.wire.shaded.okio.TestUtil.SEGMENT_POOL_MAX_SIZE
+import com.squareup.wire.shaded.okio.TestUtil.SEGMENT_SIZE
+import com.squareup.wire.shaded.okio.TestUtil.bufferWithRandomSegmentLayout
+import com.squareup.wire.shaded.okio.TestUtil.segmentPoolByteCount
+import com.squareup.wire.shaded.okio.TestUtil.segmentSizes
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail

@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.util.concurrent.Future
 import java.util.zip.Deflater
 import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
-import okio.ByteString.Companion.decodeHex
-import okio.HashingSink.Companion.sha256
-import okio.TestUtil.SEGMENT_SIZE
-import okio.TestUtil.randomSource
-import okio.TestingExecutors.newExecutorService
+import com.squareup.wire.shaded.okio.ByteString.Companion.decodeHex
+import com.squareup.wire.shaded.okio.HashingSink.Companion.sha256
+import com.squareup.wire.shaded.okio.TestUtil.SEGMENT_SIZE
+import com.squareup.wire.shaded.okio.TestUtil.randomSource
+import com.squareup.wire.shaded.okio.TestingExecutors.newExecutorService
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

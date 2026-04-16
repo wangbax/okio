@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import okio.HashingSink.Companion.hmacSha1
-import okio.HashingSink.Companion.hmacSha256
-import okio.HashingSink.Companion.hmacSha512
-import okio.HashingSink.Companion.sha1
-import okio.HashingSink.Companion.sha256
-import okio.HashingSink.Companion.sha512
+import com.squareup.wire.shaded.okio.HashingSink.Companion.hmacSha1
+import com.squareup.wire.shaded.okio.HashingSink.Companion.hmacSha256
+import com.squareup.wire.shaded.okio.HashingSink.Companion.hmacSha512
+import com.squareup.wire.shaded.okio.HashingSink.Companion.sha1
+import com.squareup.wire.shaded.okio.HashingSink.Companion.sha256
+import com.squareup.wire.shaded.okio.HashingSink.Companion.sha512
 
 class HashingSinkTest {
   private val source = Buffer()

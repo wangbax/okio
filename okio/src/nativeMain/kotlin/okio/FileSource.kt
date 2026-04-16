@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlinx.cinterop.CPointer
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.usePinned
-import okio.Buffer.UnsafeCursor
+import com.squareup.wire.shaded.okio.Buffer.UnsafeCursor
 import platform.posix.FILE
 import platform.posix.errno
 import platform.posix.fclose

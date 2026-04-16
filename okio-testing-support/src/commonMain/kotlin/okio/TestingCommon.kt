@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.random.Random
 import kotlin.test.assertEquals
 import kotlin.time.Duration
-import okio.ByteString.Companion.toByteString
-import okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.ByteString.Companion.toByteString
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
 
 fun Char.repeat(count: Int): String {
   return toString().repeat(count)

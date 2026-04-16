@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.samples
+package com.squareup.wire.shaded.okio.samples
 
 import java.io.File
 import java.io.IOException
-import okio.buffer
-import okio.sink
+import com.squareup.wire.shaded.okio.buffer
+import com.squareup.wire.shaded.okio.sink
 
 @Throws(IOException::class)
 fun writeEnv(file: File) {

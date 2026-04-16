@@ -60,9 +60,9 @@ tasks {
     val bndExtension = aQute.bnd.gradle.BundleTaskExtension(this)
     bndExtension.setBnd(
       """
-      Export-Package: okio.fakefilesystem
-      Automatic-Module-Name: okio.fakefilesystem
-      Bundle-SymbolicName: com.squareup.okio.fakefilesystem
+      Export-Package: com.squareup.wire.shaded.okio.fakefilesystem
+      Automatic-Module-Name: com.squareup.wire.shaded.okio.fakefilesystem
+      Bundle-SymbolicName: io.github.wangbax.okio.fakefilesystem
       """
     )
     // Call the convention when the task has finished to modify the jar to contain OSGi metadata.

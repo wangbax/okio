@@ -13,30 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.fakefilesystem
+package com.squareup.wire.shaded.okio.fakefilesystem
 
 import kotlin.jvm.JvmField
 import kotlin.jvm.JvmName
 import kotlin.reflect.KClass
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import okio.ArrayIndexOutOfBoundsException
-import okio.Buffer
-import okio.ByteString
-import okio.FileHandle
-import okio.FileMetadata
-import okio.FileNotFoundException
-import okio.FileSystem
-import okio.IOException
-import okio.Path
-import okio.Path.Companion.toPath
-import okio.Sink
-import okio.Source
-import okio.fakefilesystem.FakeFileSystem.Element.Directory
-import okio.fakefilesystem.FakeFileSystem.Element.File
-import okio.fakefilesystem.FakeFileSystem.Element.Symlink
-import okio.fakefilesystem.FakeFileSystem.Operation.READ
-import okio.fakefilesystem.FakeFileSystem.Operation.WRITE
+import com.squareup.wire.shaded.okio.ArrayIndexOutOfBoundsException
+import com.squareup.wire.shaded.okio.Buffer
+import com.squareup.wire.shaded.okio.ByteString
+import com.squareup.wire.shaded.okio.FileHandle
+import com.squareup.wire.shaded.okio.FileMetadata
+import com.squareup.wire.shaded.okio.FileNotFoundException
+import com.squareup.wire.shaded.okio.FileSystem
+import com.squareup.wire.shaded.okio.IOException
+import com.squareup.wire.shaded.okio.Path
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.Sink
+import com.squareup.wire.shaded.okio.Source
+import com.squareup.wire.shaded.okio.fakefilesystem.FakeFileSystem.Element.Directory
+import com.squareup.wire.shaded.okio.fakefilesystem.FakeFileSystem.Element.File
+import com.squareup.wire.shaded.okio.fakefilesystem.FakeFileSystem.Element.Symlink
+import com.squareup.wire.shaded.okio.fakefilesystem.FakeFileSystem.Operation.READ
+import com.squareup.wire.shaded.okio.fakefilesystem.FakeFileSystem.Operation.WRITE
 
 /**
  * A fully in-memory file system useful for testing. It includes features to support writing

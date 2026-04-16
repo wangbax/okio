@@ -19,16 +19,16 @@
 
 @file:JvmName("-SegmentedByteString") // A leading '-' hides this class from Java.
 
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
 import kotlin.jvm.JvmName
-import okio.Buffer
-import okio.ByteString
-import okio.Segment
-import okio.SegmentedByteString
-import okio.arrayRangeEquals
-import okio.checkOffsetAndCount
-import okio.resolveDefaultParameter
+import com.squareup.wire.shaded.okio.Buffer
+import com.squareup.wire.shaded.okio.ByteString
+import com.squareup.wire.shaded.okio.Segment
+import com.squareup.wire.shaded.okio.SegmentedByteString
+import com.squareup.wire.shaded.okio.arrayRangeEquals
+import com.squareup.wire.shaded.okio.checkOffsetAndCount
+import com.squareup.wire.shaded.okio.resolveDefaultParameter
 
 internal fun IntArray.binarySearch(value: Int, fromIndex: Int, toIndex: Int): Int {
   var left = fromIndex

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.File
 import java.io.InputStream
@@ -29,7 +29,7 @@ object `-DeprecatedOkio` {
     message = "moved to extension function",
     replaceWith = ReplaceWith(
       expression = "file.appendingSink()",
-      imports = ["okio.appendingSink"],
+      imports = ["com.squareup.wire.shaded.okio.appendingSink"],
     ),
     level = DeprecationLevel.ERROR,
   )
@@ -39,7 +39,7 @@ object `-DeprecatedOkio` {
     message = "moved to extension function",
     replaceWith = ReplaceWith(
       expression = "sink.buffer()",
-      imports = ["okio.buffer"],
+      imports = ["com.squareup.wire.shaded.okio.buffer"],
     ),
     level = DeprecationLevel.ERROR,
   )
@@ -49,7 +49,7 @@ object `-DeprecatedOkio` {
     message = "moved to extension function",
     replaceWith = ReplaceWith(
       expression = "source.buffer()",
-      imports = ["okio.buffer"],
+      imports = ["com.squareup.wire.shaded.okio.buffer"],
     ),
     level = DeprecationLevel.ERROR,
   )
@@ -59,7 +59,7 @@ object `-DeprecatedOkio` {
     message = "moved to extension function",
     replaceWith = ReplaceWith(
       expression = "file.sink()",
-      imports = ["okio.sink"],
+      imports = ["com.squareup.wire.shaded.okio.sink"],
     ),
     level = DeprecationLevel.ERROR,
   )
@@ -69,7 +69,7 @@ object `-DeprecatedOkio` {
     message = "moved to extension function",
     replaceWith = ReplaceWith(
       expression = "outputStream.sink()",
-      imports = ["okio.sink"],
+      imports = ["com.squareup.wire.shaded.okio.sink"],
     ),
     level = DeprecationLevel.ERROR,
   )
@@ -79,7 +79,7 @@ object `-DeprecatedOkio` {
     message = "moved to extension function",
     replaceWith = ReplaceWith(
       expression = "path.sink(*options)",
-      imports = ["okio.sink"],
+      imports = ["com.squareup.wire.shaded.okio.sink"],
     ),
     level = DeprecationLevel.ERROR,
   )
@@ -89,7 +89,7 @@ object `-DeprecatedOkio` {
     message = "moved to extension function",
     replaceWith = ReplaceWith(
       expression = "socket.sink()",
-      imports = ["okio.sink"],
+      imports = ["com.squareup.wire.shaded.okio.sink"],
     ),
     level = DeprecationLevel.ERROR,
   )
@@ -99,7 +99,7 @@ object `-DeprecatedOkio` {
     message = "moved to extension function",
     replaceWith = ReplaceWith(
       expression = "file.source()",
-      imports = ["okio.source"],
+      imports = ["com.squareup.wire.shaded.okio.source"],
     ),
     level = DeprecationLevel.ERROR,
   )
@@ -109,7 +109,7 @@ object `-DeprecatedOkio` {
     message = "moved to extension function",
     replaceWith = ReplaceWith(
       expression = "inputStream.source()",
-      imports = ["okio.source"],
+      imports = ["com.squareup.wire.shaded.okio.source"],
     ),
     level = DeprecationLevel.ERROR,
   )
@@ -119,7 +119,7 @@ object `-DeprecatedOkio` {
     message = "moved to extension function",
     replaceWith = ReplaceWith(
       expression = "path.source(*options)",
-      imports = ["okio.source"],
+      imports = ["com.squareup.wire.shaded.okio.source"],
     ),
     level = DeprecationLevel.ERROR,
   )
@@ -129,7 +129,7 @@ object `-DeprecatedOkio` {
     message = "moved to extension function",
     replaceWith = ReplaceWith(
       expression = "socket.source()",
-      imports = ["okio.source"],
+      imports = ["com.squareup.wire.shaded.okio.source"],
     ),
     level = DeprecationLevel.ERROR,
   )
@@ -139,7 +139,7 @@ object `-DeprecatedOkio` {
     message = "moved to extension function",
     replaceWith = ReplaceWith(
       expression = "blackholeSink()",
-      imports = ["okio.blackholeSink"],
+      imports = ["com.squareup.wire.shaded.okio.blackholeSink"],
     ),
     level = DeprecationLevel.ERROR,
   )

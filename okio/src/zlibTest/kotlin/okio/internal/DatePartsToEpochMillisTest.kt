@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import okio.withUtc
+import com.squareup.wire.shaded.okio.withUtc
 
 class DatePartsToEpochMillisTest {
   /**

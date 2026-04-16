@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.InterruptedIOException
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.Condition
 import java.util.concurrent.locks.ReentrantLock
-import okio.TestUtil.assumeNotWindows
+import com.squareup.wire.shaded.okio.TestUtil.assumeNotWindows
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

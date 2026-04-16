@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.util.zip.Deflater
 import java.util.zip.Inflater
 import kotlin.test.assertEquals
-import okio.ByteString.Companion.decodeHex
+import com.squareup.wire.shaded.okio.ByteString.Companion.decodeHex
 import org.junit.Test
 
 class DeflateKotlinTest {

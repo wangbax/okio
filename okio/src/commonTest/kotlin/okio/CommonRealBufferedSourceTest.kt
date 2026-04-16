@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

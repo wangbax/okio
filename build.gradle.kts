@@ -63,11 +63,11 @@ allprojects {
       skipDeprecated.set(true)
       jdkVersion.set(8)
       perPackageOption {
-        matchingRegex.set("com\\.squareup.okio.*")
+        matchingRegex.set("com\\.squareup\\.wire\\.shaded\\.okio.*")
         suppress.set(true)
       }
       perPackageOption {
-        matchingRegex.set("okio\\.internal.*")
+        matchingRegex.set("com\\.squareup\\.wire\\.shaded\\.okio\\.internal.*")
         suppress.set(true)
       }
     }
@@ -114,12 +114,18 @@ allprojects {
     }
     val publishingExtension = extensions.getByType(PublishingExtension::class.java)
     configure<MavenPublishBaseExtension> {
-      publishToMavenCentral(SonatypeHost.S01, automaticRelease = true)
-      signAllPublications()
+      publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
+      val isMavenLocalOnly = gradle.startParameter.taskNames.isNotEmpty() &&
+        gradle.startParameter.taskNames.all {
+          it == "publishToMavenLocal" || it.endsWith("ToMavenLocal")
+        }
+      if (!isMavenLocalOnly) {
+        signAllPublications()
+      }
       pom {
         description.set("A modern I/O library for Android, Java, and Kotlin Multiplatform.")
         name.set(project.name)
-        url.set("https://github.com/square/okio/")
+        url.set("https://github.com/wangbax/okio/")
         licenses {
           license {
             name.set("The Apache Software License, Version 2.0")
@@ -128,21 +134,21 @@ allprojects {
           }
         }
         scm {
-          url.set("https://github.com/square/okio/")
-          connection.set("scm:git:git://github.com/square/okio.git")
-          developerConnection.set("scm:git:ssh://git@github.com/square/okio.git")
+          url.set("https://github.com/wangbax/okio/")
+          connection.set("scm:git:git://github.com/wangbax/okio.git")
+          developerConnection.set("scm:git:ssh://git@github.com/wangbax/okio.git")
         }
         developers {
           developer {
-            id.set("square")
-            name.set("Square, Inc.")
+            id.set("wangbax")
+            name.set("wangbax")
           }
         }
       }
 
       // Configure the kotlinMultiplatform artifact to depend on the JVM artifact in pom.xml only.
-      // This hack allows Maven users to continue using our original Okio artifact names (like
-      // com.squareup.okio:okio:3.x.y) even though we changed that artifact from JVM-only to Kotlin
+      // This hack allows Maven users to continue using our published Okio artifact names (like
+      // io.github.wangbax:okio:3.x.y) even though we changed that artifact from JVM-only to Kotlin
       // Multiplatform. Note that module.json doesn't need this hack.
       val mavenPublications = publishingExtension.publications.withType<MavenPublication>()
       mavenPublications.configureEach {

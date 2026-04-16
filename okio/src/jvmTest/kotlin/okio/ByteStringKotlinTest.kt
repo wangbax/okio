@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.ByteArrayInputStream
 import java.nio.ByteBuffer
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import okio.ByteString.Companion.encode
-import okio.ByteString.Companion.encodeUtf8
-import okio.ByteString.Companion.readByteString
-import okio.ByteString.Companion.toByteString
+import com.squareup.wire.shaded.okio.ByteString.Companion.encode
+import com.squareup.wire.shaded.okio.ByteString.Companion.encodeUtf8
+import com.squareup.wire.shaded.okio.ByteString.Companion.readByteString
+import com.squareup.wire.shaded.okio.ByteString.Companion.toByteString
 
 class ByteStringKotlinTest {
   @Test fun arrayToByteString() {

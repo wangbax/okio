@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.random.Random
 import kotlin.test.Test
@@ -25,11 +25,11 @@ import kotlin.test.assertNotEquals
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 import kotlin.test.fail
-import okio.ByteString.Companion.decodeBase64
-import okio.ByteString.Companion.decodeHex
-import okio.ByteString.Companion.encodeUtf8
-import okio.ByteString.Companion.toByteString
-import okio.internal.commonAsUtf8ToByteArray
+import com.squareup.wire.shaded.okio.ByteString.Companion.decodeBase64
+import com.squareup.wire.shaded.okio.ByteString.Companion.decodeHex
+import com.squareup.wire.shaded.okio.ByteString.Companion.encodeUtf8
+import com.squareup.wire.shaded.okio.ByteString.Companion.toByteString
+import com.squareup.wire.shaded.okio.internal.commonAsUtf8ToByteArray
 
 class ByteStringTest : AbstractByteStringTest(ByteStringFactory.BYTE_STRING)
 class SegmentedByteStringTest : AbstractByteStringTest(ByteStringFactory.SEGMENTED_BYTE_STRING)

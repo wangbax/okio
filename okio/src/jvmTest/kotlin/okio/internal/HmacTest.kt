@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 import kotlin.random.Random
-import okio.ByteString
+import com.squareup.wire.shaded.okio.ByteString
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

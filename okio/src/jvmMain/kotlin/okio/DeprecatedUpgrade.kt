@@ -15,7 +15,7 @@
  */
 @file:JvmName("-DeprecatedUpgrade")
 
-package okio
+package com.squareup.wire.shaded.okio
 
 val Okio = `-DeprecatedOkio`
 val Utf8 = `-DeprecatedUtf8`

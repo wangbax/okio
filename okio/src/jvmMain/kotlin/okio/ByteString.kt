@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.EOFException
 import java.io.IOException
@@ -28,33 +28,33 @@ import java.security.InvalidKeyException
 import java.security.MessageDigest
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
-import okio.internal.commonBase64
-import okio.internal.commonBase64Url
-import okio.internal.commonCompareTo
-import okio.internal.commonCopyInto
-import okio.internal.commonDecodeBase64
-import okio.internal.commonDecodeHex
-import okio.internal.commonEncodeUtf8
-import okio.internal.commonEndsWith
-import okio.internal.commonEquals
-import okio.internal.commonGetByte
-import okio.internal.commonGetSize
-import okio.internal.commonHashCode
-import okio.internal.commonHex
-import okio.internal.commonIndexOf
-import okio.internal.commonInternalArray
-import okio.internal.commonLastIndexOf
-import okio.internal.commonOf
-import okio.internal.commonRangeEquals
-import okio.internal.commonStartsWith
-import okio.internal.commonSubstring
-import okio.internal.commonToAsciiLowercase
-import okio.internal.commonToAsciiUppercase
-import okio.internal.commonToByteArray
-import okio.internal.commonToByteString
-import okio.internal.commonToString
-import okio.internal.commonUtf8
-import okio.internal.commonWrite
+import com.squareup.wire.shaded.okio.internal.commonBase64
+import com.squareup.wire.shaded.okio.internal.commonBase64Url
+import com.squareup.wire.shaded.okio.internal.commonCompareTo
+import com.squareup.wire.shaded.okio.internal.commonCopyInto
+import com.squareup.wire.shaded.okio.internal.commonDecodeBase64
+import com.squareup.wire.shaded.okio.internal.commonDecodeHex
+import com.squareup.wire.shaded.okio.internal.commonEncodeUtf8
+import com.squareup.wire.shaded.okio.internal.commonEndsWith
+import com.squareup.wire.shaded.okio.internal.commonEquals
+import com.squareup.wire.shaded.okio.internal.commonGetByte
+import com.squareup.wire.shaded.okio.internal.commonGetSize
+import com.squareup.wire.shaded.okio.internal.commonHashCode
+import com.squareup.wire.shaded.okio.internal.commonHex
+import com.squareup.wire.shaded.okio.internal.commonIndexOf
+import com.squareup.wire.shaded.okio.internal.commonInternalArray
+import com.squareup.wire.shaded.okio.internal.commonLastIndexOf
+import com.squareup.wire.shaded.okio.internal.commonOf
+import com.squareup.wire.shaded.okio.internal.commonRangeEquals
+import com.squareup.wire.shaded.okio.internal.commonStartsWith
+import com.squareup.wire.shaded.okio.internal.commonSubstring
+import com.squareup.wire.shaded.okio.internal.commonToAsciiLowercase
+import com.squareup.wire.shaded.okio.internal.commonToAsciiUppercase
+import com.squareup.wire.shaded.okio.internal.commonToByteArray
+import com.squareup.wire.shaded.okio.internal.commonToByteString
+import com.squareup.wire.shaded.okio.internal.commonToString
+import com.squareup.wire.shaded.okio.internal.commonUtf8
+import com.squareup.wire.shaded.okio.internal.commonWrite
 
 actual open class ByteString
 internal actual constructor(
@@ -288,7 +288,7 @@ internal actual constructor(
       message = "moved to extension function",
       replaceWith = ReplaceWith(
         expression = "string.decodeBase64()",
-        imports = ["okio.ByteString.Companion.decodeBase64"],
+        imports = ["com.squareup.wire.shaded.okio.ByteString.Companion.decodeBase64"],
       ),
       level = DeprecationLevel.ERROR,
     )
@@ -299,7 +299,7 @@ internal actual constructor(
       message = "moved to extension function",
       replaceWith = ReplaceWith(
         expression = "string.decodeHex()",
-        imports = ["okio.ByteString.Companion.decodeHex"],
+        imports = ["com.squareup.wire.shaded.okio.ByteString.Companion.decodeHex"],
       ),
       level = DeprecationLevel.ERROR,
     )
@@ -310,7 +310,7 @@ internal actual constructor(
       message = "moved to extension function",
       replaceWith = ReplaceWith(
         expression = "string.encode(charset)",
-        imports = ["okio.ByteString.Companion.encode"],
+        imports = ["com.squareup.wire.shaded.okio.ByteString.Companion.encode"],
       ),
       level = DeprecationLevel.ERROR,
     )
@@ -321,7 +321,7 @@ internal actual constructor(
       message = "moved to extension function",
       replaceWith = ReplaceWith(
         expression = "string.encodeUtf8()",
-        imports = ["okio.ByteString.Companion.encodeUtf8"],
+        imports = ["com.squareup.wire.shaded.okio.ByteString.Companion.encodeUtf8"],
       ),
       level = DeprecationLevel.ERROR,
     )
@@ -332,7 +332,7 @@ internal actual constructor(
       message = "moved to extension function",
       replaceWith = ReplaceWith(
         expression = "buffer.toByteString()",
-        imports = ["okio.ByteString.Companion.toByteString"],
+        imports = ["com.squareup.wire.shaded.okio.ByteString.Companion.toByteString"],
       ),
       level = DeprecationLevel.ERROR,
     )
@@ -343,7 +343,7 @@ internal actual constructor(
       message = "moved to extension function",
       replaceWith = ReplaceWith(
         expression = "array.toByteString(offset, byteCount)",
-        imports = ["okio.ByteString.Companion.toByteString"],
+        imports = ["com.squareup.wire.shaded.okio.ByteString.Companion.toByteString"],
       ),
       level = DeprecationLevel.ERROR,
     )
@@ -354,7 +354,7 @@ internal actual constructor(
       message = "moved to extension function",
       replaceWith = ReplaceWith(
         expression = "inputstream.readByteString(byteCount)",
-        imports = ["okio.ByteString.Companion.readByteString"],
+        imports = ["com.squareup.wire.shaded.okio.ByteString.Companion.readByteString"],
       ),
       level = DeprecationLevel.ERROR,
     )

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
 import kotlin.wasm.unsafe.MemoryAllocator
 import kotlin.wasm.unsafe.Pointer
-import okio.internal.preview1.fd
-import okio.internal.preview1.fd_close
-import okio.internal.preview1.size
+import com.squareup.wire.shaded.okio.internal.preview1.fd
+import com.squareup.wire.shaded.okio.internal.preview1.fd_close
+import com.squareup.wire.shaded.okio.internal.preview1.size
 
 internal fun fdClose(fd: fd) {
   val errno = fd_close(fd = fd)

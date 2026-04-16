@@ -15,7 +15,7 @@
  */
 @file:JvmName("-CommonPlatform") // A leading '-' hides this class from Java.
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.jvm.JvmName
 

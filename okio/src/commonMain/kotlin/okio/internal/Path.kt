@@ -15,15 +15,15 @@
  */
 @file:JvmName("-Path") // A leading '-' hides this class from Java.
 
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
 import kotlin.jvm.JvmName
 import kotlin.native.concurrent.SharedImmutable
-import okio.Buffer
-import okio.ByteString
-import okio.ByteString.Companion.encodeUtf8
-import okio.Path
-import okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.Buffer
+import com.squareup.wire.shaded.okio.ByteString
+import com.squareup.wire.shaded.okio.ByteString.Companion.encodeUtf8
+import com.squareup.wire.shaded.okio.Path
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
 
 @SharedImmutable
 private val SLASH = "/".encodeUtf8()

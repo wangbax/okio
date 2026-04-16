@@ -14,16 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
-import okio.BufferedSource
-import okio.FileSystem
-import okio.IOException
-import okio.Path
-import okio.Path.Companion.toPath
-import okio.ZipFileSystem
-import okio.buffer
-import okio.use
+import com.squareup.wire.shaded.okio.BufferedSource
+import com.squareup.wire.shaded.okio.FileSystem
+import com.squareup.wire.shaded.okio.IOException
+import com.squareup.wire.shaded.okio.Path
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.ZipFileSystem
+import com.squareup.wire.shaded.okio.buffer
+import com.squareup.wire.shaded.okio.use
 
 private const val LOCAL_FILE_HEADER_SIGNATURE = 0x4034b50
 private const val CENTRAL_FILE_HEADER_SIGNATURE = 0x2014b50

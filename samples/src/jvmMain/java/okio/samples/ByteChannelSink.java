@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.samples;
+package com.squareup.wire.shaded.okio.samples;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.WritableByteChannel;
-import okio.Buffer;
-import okio.Sink;
-import okio.Timeout;
+import com.squareup.wire.shaded.okio.Buffer;
+import com.squareup.wire.shaded.okio.Sink;
+import com.squareup.wire.shaded.okio.Timeout;
 
 /**
  * Creates a Sink around a WritableByteChannel and efficiently writes data using an UnsafeCursor.

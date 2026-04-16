@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 @Deprecated(message = "changed in Okio 2.x")
 object `-DeprecatedUtf8` {
@@ -22,7 +22,7 @@ object `-DeprecatedUtf8` {
     message = "moved to extension function",
     replaceWith = ReplaceWith(
       expression = "string.utf8Size()",
-      imports = ["okio.utf8Size"],
+      imports = ["com.squareup.wire.shaded.okio.utf8Size"],
     ),
     level = DeprecationLevel.ERROR,
   )
@@ -32,7 +32,7 @@ object `-DeprecatedUtf8` {
     message = "moved to extension function",
     replaceWith = ReplaceWith(
       expression = "string.utf8Size(beginIndex, endIndex)",
-      imports = ["okio.utf8Size"],
+      imports = ["com.squareup.wire.shaded.okio.utf8Size"],
     ),
     level = DeprecationLevel.ERROR,
   )

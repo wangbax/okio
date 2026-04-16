@@ -1,9 +1,9 @@
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.test.Test
 import kotlin.test.assertNull
-import okio.Path.Companion.toPath
-import okio.fakefilesystem.FakeFileSystem
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.fakefilesystem.FakeFileSystem
 
 class UseTest {
   val fakeFileSystem = FakeFileSystem(clock = FakeClock()).also { it.emulateUnix() }

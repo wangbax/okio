@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.squareup.okio.benchmarks;
+package com.squareup.wire.shaded.okio.benchmarks;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-import okio.Buffer;
-import okio.ByteString;
-import okio.Options;
+import com.squareup.wire.shaded.okio.Buffer;
+import com.squareup.wire.shaded.okio.ByteString;
+import com.squareup.wire.shaded.okio.Options;
 import org.openjdk.jmh.Main;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;

@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.samples;
+package com.squareup.wire.shaded.okio.samples;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-import okio.BufferedSink;
-import okio.Okio;
-import okio.Sink;
+import com.squareup.wire.shaded.okio.BufferedSink;
+import com.squareup.wire.shaded.okio.Okio;
+import com.squareup.wire.shaded.okio.Sink;
 
 public final class WriteJavaIoFile {
   public void run() throws Exception {

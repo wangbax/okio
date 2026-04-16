@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.util.zip.Deflater
 import java.util.zip.Inflater
 import java.util.zip.InflaterInputStream
-import okio.TestUtil.SEGMENT_SIZE
-import okio.TestUtil.randomBytes
+import com.squareup.wire.shaded.okio.TestUtil.SEGMENT_SIZE
+import com.squareup.wire.shaded.okio.TestUtil.randomBytes
 import org.junit.Assert
 import org.junit.Test
 

@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.wasm.unsafe.Pointer
 import kotlin.wasm.unsafe.withScopedMemoryAllocator
-import okio.internal.ErrnoException
-import okio.internal.fdClose
-import okio.internal.preview1.fd
-import okio.internal.preview1.fd_filestat_get
-import okio.internal.preview1.fd_filestat_set_size
-import okio.internal.preview1.fd_pread
-import okio.internal.preview1.fd_pwrite
-import okio.internal.preview1.fd_sync
-import okio.internal.read
-import okio.internal.write
+import com.squareup.wire.shaded.okio.internal.ErrnoException
+import com.squareup.wire.shaded.okio.internal.fdClose
+import com.squareup.wire.shaded.okio.internal.preview1.fd
+import com.squareup.wire.shaded.okio.internal.preview1.fd_filestat_get
+import com.squareup.wire.shaded.okio.internal.preview1.fd_filestat_set_size
+import com.squareup.wire.shaded.okio.internal.preview1.fd_pread
+import com.squareup.wire.shaded.okio.internal.preview1.fd_pwrite
+import com.squareup.wire.shaded.okio.internal.preview1.fd_sync
+import com.squareup.wire.shaded.okio.internal.read
+import com.squareup.wire.shaded.okio.internal.write
 
 internal class WasiFileHandle(
   private val fd: fd,

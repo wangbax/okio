@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.util.Arrays
-import okio.ByteString.Companion.of
-import okio.TestUtil.SEGMENT_SIZE
-import okio.TestUtil.deepCopy
+import com.squareup.wire.shaded.okio.ByteString.Companion.of
+import com.squareup.wire.shaded.okio.TestUtil.SEGMENT_SIZE
+import com.squareup.wire.shaded.okio.TestUtil.deepCopy
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals

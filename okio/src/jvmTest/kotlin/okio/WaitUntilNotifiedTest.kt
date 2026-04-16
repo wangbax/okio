@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.InterruptedIOException
 import java.util.concurrent.TimeUnit
-import okio.TestUtil.assumeNotWindows
-import okio.TestingExecutors.newScheduledExecutorService
+import com.squareup.wire.shaded.okio.TestUtil.assumeNotWindows
+import com.squareup.wire.shaded.okio.TestingExecutors.newScheduledExecutorService
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

@@ -143,7 +143,7 @@ _2022-04-19_
  * Fix: Support empty ZIP files in `FileSystem.openZip()`.
  * Fix: Throw in `canonicalize()` of ZIP file systems if the path doesn't exist.
  * Fix: Don't require ZIP files start with a local file header.
- * New: `okio.ProtocolException` is a new exception type for multiplatform users. (It is aliased to
+ * New: `com.squareup.wire.shaded.okio.ProtocolException` is a new exception type for multiplatform users. (It is aliased to
    `java.net.ProtocolException` on JVM platforms).
 
 
@@ -328,7 +328,7 @@ _2021-01-07_
 * New: Support `HashingSource`, `HashingSink`, buffer hash functions, and `UnsafeCursor` on non-JVM
   platforms. Previously these were all JVM-only.
 * New: Implement `Closeable` on `Sink` and `Source` on non-JVM platforms. Okio now includes a
-  multiplatform `okio.Closeable` interface and corresponding `use {}` extension. Closing resources
+  multiplatform `com.squareup.wire.shaded.okio.Closeable` interface and corresponding `use {}` extension. Closing resources
   when you're done with them shouldn't be JVM-only!
 * New: `Sink.hashingSink` and `Source.hashingSource` functions that accept
   `java.security.MessageDigest` and `javax.crypto.Mac` instances. Use these when your hash function

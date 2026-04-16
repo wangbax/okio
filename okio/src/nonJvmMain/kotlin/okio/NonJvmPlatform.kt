@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package okio
+package com.squareup.wire.shaded.okio
 
-import okio.internal.commonAsUtf8ToByteArray
-import okio.internal.commonToUtf8String
+import com.squareup.wire.shaded.okio.internal.commonAsUtf8ToByteArray
+import com.squareup.wire.shaded.okio.internal.commonToUtf8String
 
 internal expect val PLATFORM_DIRECTORY_SEPARATOR: String
 

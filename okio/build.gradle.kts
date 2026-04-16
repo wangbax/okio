@@ -195,9 +195,9 @@ tasks {
     val bndExtension = BundleTaskExtension(this)
     bndExtension.setBnd(
       """
-      Export-Package: okio
-      Automatic-Module-Name: okio
-      Bundle-SymbolicName: com.squareup.okio
+      Export-Package: com.squareup.wire.shaded.okio
+      Automatic-Module-Name: com.squareup.wire.shaded.okio
+      Bundle-SymbolicName: io.github.wangbax.okio
       """,
     )
     // Call the extension when the task has finished to modify the jar to contain OSGi metadata.

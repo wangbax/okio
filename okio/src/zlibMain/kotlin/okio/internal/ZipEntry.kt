@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
-import okio.FileMetadata
-import okio.Path
+import com.squareup.wire.shaded.okio.FileMetadata
+import com.squareup.wire.shaded.okio.Path
 
 /**
  * This class prefers NTFS timestamps, then extended timestamps, then the base ZIP timestamps.

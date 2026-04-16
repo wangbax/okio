@@ -17,11 +17,11 @@
 @file:JvmName("-GzipSinkExtensions")
 @file:Suppress("NOTHING_TO_INLINE") // Aliases to public API.
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.jvm.JvmName
-import okio.internal.CRC32
-import okio.internal.DEFAULT_COMPRESSION
+import com.squareup.wire.shaded.okio.internal.CRC32
+import com.squareup.wire.shaded.okio.internal.DEFAULT_COMPRESSION
 
 /**
  * A sink that uses [GZIP](http://www.ietf.org/rfc/rfc1952.txt) to

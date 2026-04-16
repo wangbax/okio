@@ -72,7 +72,7 @@
 @file:JsModule("fs")
 @file:JsNonModule
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.js.Date
 

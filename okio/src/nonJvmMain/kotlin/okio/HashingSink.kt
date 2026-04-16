@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
-import okio.internal.HashFunction
-import okio.internal.Hmac
-import okio.internal.Md5
-import okio.internal.Sha1
-import okio.internal.Sha256
-import okio.internal.Sha512
+import com.squareup.wire.shaded.okio.internal.HashFunction
+import com.squareup.wire.shaded.okio.internal.Hmac
+import com.squareup.wire.shaded.okio.internal.Md5
+import com.squareup.wire.shaded.okio.internal.Sha1
+import com.squareup.wire.shaded.okio.internal.Sha256
+import com.squareup.wire.shaded.okio.internal.Sha512
 
 actual class HashingSink internal constructor(
   private val sink: Sink,

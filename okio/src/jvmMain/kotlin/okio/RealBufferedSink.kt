@@ -13,31 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.IOException
 import java.io.OutputStream
 import java.nio.ByteBuffer
 import java.nio.charset.Charset
-import okio.internal.commonClose
-import okio.internal.commonEmit
-import okio.internal.commonEmitCompleteSegments
-import okio.internal.commonFlush
-import okio.internal.commonTimeout
-import okio.internal.commonToString
-import okio.internal.commonWrite
-import okio.internal.commonWriteAll
-import okio.internal.commonWriteByte
-import okio.internal.commonWriteDecimalLong
-import okio.internal.commonWriteHexadecimalUnsignedLong
-import okio.internal.commonWriteInt
-import okio.internal.commonWriteIntLe
-import okio.internal.commonWriteLong
-import okio.internal.commonWriteLongLe
-import okio.internal.commonWriteShort
-import okio.internal.commonWriteShortLe
-import okio.internal.commonWriteUtf8
-import okio.internal.commonWriteUtf8CodePoint
+import com.squareup.wire.shaded.okio.internal.commonClose
+import com.squareup.wire.shaded.okio.internal.commonEmit
+import com.squareup.wire.shaded.okio.internal.commonEmitCompleteSegments
+import com.squareup.wire.shaded.okio.internal.commonFlush
+import com.squareup.wire.shaded.okio.internal.commonTimeout
+import com.squareup.wire.shaded.okio.internal.commonToString
+import com.squareup.wire.shaded.okio.internal.commonWrite
+import com.squareup.wire.shaded.okio.internal.commonWriteAll
+import com.squareup.wire.shaded.okio.internal.commonWriteByte
+import com.squareup.wire.shaded.okio.internal.commonWriteDecimalLong
+import com.squareup.wire.shaded.okio.internal.commonWriteHexadecimalUnsignedLong
+import com.squareup.wire.shaded.okio.internal.commonWriteInt
+import com.squareup.wire.shaded.okio.internal.commonWriteIntLe
+import com.squareup.wire.shaded.okio.internal.commonWriteLong
+import com.squareup.wire.shaded.okio.internal.commonWriteLongLe
+import com.squareup.wire.shaded.okio.internal.commonWriteShort
+import com.squareup.wire.shaded.okio.internal.commonWriteShortLe
+import com.squareup.wire.shaded.okio.internal.commonWriteUtf8
+import com.squareup.wire.shaded.okio.internal.commonWriteUtf8CodePoint
 
 internal actual class RealBufferedSink actual constructor(
   @JvmField actual val sink: Sink,

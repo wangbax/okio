@@ -16,7 +16,7 @@
 
 @file:JvmName("-DeflaterSinkExtensions")
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.jvm.JvmName
 

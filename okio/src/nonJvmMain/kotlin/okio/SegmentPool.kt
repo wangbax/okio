@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 internal actual object SegmentPool {
   actual val MAX_SIZE: Int = 0

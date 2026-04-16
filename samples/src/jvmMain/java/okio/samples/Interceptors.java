@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.samples;
+package com.squareup.wire.shaded.okio.samples;
 
 import java.io.IOException;
 import java.util.Random;
-import okio.Buffer;
-import okio.ForwardingSink;
-import okio.ForwardingSource;
-import okio.Sink;
-import okio.Source;
+import com.squareup.wire.shaded.okio.Buffer;
+import com.squareup.wire.shaded.okio.ForwardingSink;
+import com.squareup.wire.shaded.okio.ForwardingSource;
+import com.squareup.wire.shaded.okio.Sink;
+import com.squareup.wire.shaded.okio.Source;
 
 /**
  * Demonstrates use of the {@link Buffer.UnsafeCursor} class. While other

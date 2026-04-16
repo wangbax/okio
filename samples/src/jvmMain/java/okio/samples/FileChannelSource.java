@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.samples;
+package com.squareup.wire.shaded.okio.samples;
 
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.channels.WritableByteChannel;
-import okio.Buffer;
-import okio.Source;
-import okio.Timeout;
+import com.squareup.wire.shaded.okio.Buffer;
+import com.squareup.wire.shaded.okio.Source;
+import com.squareup.wire.shaded.okio.Timeout;
 
 /**
  * Special Source for a FileChannel to take advantage of the

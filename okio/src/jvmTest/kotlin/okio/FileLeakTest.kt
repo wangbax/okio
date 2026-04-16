@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.net.URLClassLoader
 import java.nio.file.Path
@@ -29,9 +29,9 @@ import kotlin.io.path.walk
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
-import okio.Path.Companion.toPath
-import okio.fakefilesystem.FakeFileSystem
-import okio.internal.ResourceFileSystem
+import com.squareup.wire.shaded.okio.Path.Companion.toPath
+import com.squareup.wire.shaded.okio.fakefilesystem.FakeFileSystem
+import com.squareup.wire.shaded.okio.internal.ResourceFileSystem
 import org.junit.After
 import org.junit.Assume.assumeTrue
 import org.junit.Before

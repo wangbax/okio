@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.InterruptedIOException
 import java.nio.channels.FileChannel
@@ -30,7 +30,7 @@ import kotlin.io.path.inputStream
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.moveTo
 import kotlin.io.path.outputStream
-import okio.Path.Companion.toOkioPath
+import com.squareup.wire.shaded.okio.Path.Companion.toOkioPath
 
 /**
  * A file system that wraps a `java.nio.file.FileSystem` and executes all operations in the context of the wrapped file

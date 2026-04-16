@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.EOFException
 import java.util.zip.DeflaterOutputStream
 import java.util.zip.Inflater
-import okio.BufferedSourceFactory.Companion.PARAMETERIZED_TEST_VALUES
-import okio.ByteString.Companion.decodeBase64
-import okio.ByteString.Companion.encodeUtf8
-import okio.TestUtil.SEGMENT_SIZE
-import okio.TestUtil.randomBytes
+import com.squareup.wire.shaded.okio.BufferedSourceFactory.Companion.PARAMETERIZED_TEST_VALUES
+import com.squareup.wire.shaded.okio.ByteString.Companion.decodeBase64
+import com.squareup.wire.shaded.okio.ByteString.Companion.encodeUtf8
+import com.squareup.wire.shaded.okio.TestUtil.SEGMENT_SIZE
+import com.squareup.wire.shaded.okio.TestUtil.randomBytes
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail

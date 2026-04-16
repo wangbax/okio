@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package okio
+package com.squareup.wire.shaded.okio
 
 /**
  * A [Source] which peeks into an upstream [BufferedSource] and allows reading and expanding of the

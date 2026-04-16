@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.internal
+package com.squareup.wire.shaded.okio.internal
 
-import okio.IOException
-import okio.internal.preview1.Errno
-import okio.internal.preview1.errno
+import com.squareup.wire.shaded.okio.IOException
+import com.squareup.wire.shaded.okio.internal.preview1.Errno
+import com.squareup.wire.shaded.okio.internal.preview1.errno
 
 class ErrnoException(
   val errno: Errno,

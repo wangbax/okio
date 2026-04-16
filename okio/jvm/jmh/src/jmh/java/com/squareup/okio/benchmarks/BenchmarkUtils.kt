@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.squareup.okio.benchmarks
+package com.squareup.wire.shaded.okio.benchmarks
 
-import okio.internal.commonAsUtf8ToByteArray
-import okio.internal.commonToUtf8String
+import com.squareup.wire.shaded.okio.internal.commonAsUtf8ToByteArray
+import com.squareup.wire.shaded.okio.internal.commonToUtf8String
 
 // Necessary to make an invisible functions visible to Java.
 object BenchmarkUtils {

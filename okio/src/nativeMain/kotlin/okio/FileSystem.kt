@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
-import okio.internal.commonCopy
-import okio.internal.commonCreateDirectories
-import okio.internal.commonDeleteRecursively
-import okio.internal.commonExists
-import okio.internal.commonListRecursively
-import okio.internal.commonMetadata
+import com.squareup.wire.shaded.okio.internal.commonCopy
+import com.squareup.wire.shaded.okio.internal.commonCreateDirectories
+import com.squareup.wire.shaded.okio.internal.commonDeleteRecursively
+import com.squareup.wire.shaded.okio.internal.commonExists
+import com.squareup.wire.shaded.okio.internal.commonListRecursively
+import com.squareup.wire.shaded.okio.internal.commonMetadata
 
 actual abstract class FileSystem {
   @Throws(IOException::class)

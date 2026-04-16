@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.wasm.unsafe.withScopedMemoryAllocator
-import okio.internal.ErrnoException
-import okio.internal.fdClose
-import okio.internal.preview1.fd
-import okio.internal.preview1.fd_sync
-import okio.internal.preview1.fd_write
-import okio.internal.preview1.size
-import okio.internal.write
+import com.squareup.wire.shaded.okio.internal.ErrnoException
+import com.squareup.wire.shaded.okio.internal.fdClose
+import com.squareup.wire.shaded.okio.internal.preview1.fd
+import com.squareup.wire.shaded.okio.internal.preview1.fd_sync
+import com.squareup.wire.shaded.okio.internal.preview1.fd_write
+import com.squareup.wire.shaded.okio.internal.preview1.size
+import com.squareup.wire.shaded.okio.internal.write
 
 internal class FileSink(
   private val fd: fd,

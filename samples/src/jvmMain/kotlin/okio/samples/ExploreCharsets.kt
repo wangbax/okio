@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio.samples
+package com.squareup.wire.shaded.okio.samples
 
 import java.io.IOException
-import okio.ByteString.Companion.encodeUtf8
-import okio.utf8Size
+import com.squareup.wire.shaded.okio.ByteString.Companion.encodeUtf8
+import com.squareup.wire.shaded.okio.utf8Size
 
 @Throws(IOException::class)
 fun dumpStringData(s: String) {

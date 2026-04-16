@@ -16,7 +16,7 @@
 
 @file:Suppress("NOTHING_TO_INLINE") // Aliases to public API.
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.io.IOException
 import java.util.zip.DataFormatException

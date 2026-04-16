@@ -16,11 +16,11 @@
  */
 @file:JvmName("-Base64") // A leading '-' hides this class from Java.
 
-package okio
+package com.squareup.wire.shaded.okio
 
 import kotlin.jvm.JvmName
 import kotlin.native.concurrent.SharedImmutable
-import okio.ByteString.Companion.encodeUtf8
+import com.squareup.wire.shaded.okio.ByteString.Companion.encodeUtf8
 
 /** @author Alexander Y. Kleymenov */
 

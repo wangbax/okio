@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
 import java.util.concurrent.atomic.AtomicReference
-import okio.SegmentPool.LOCK
-import okio.SegmentPool.recycle
-import okio.SegmentPool.take
+import com.squareup.wire.shaded.okio.SegmentPool.LOCK
+import com.squareup.wire.shaded.okio.SegmentPool.recycle
+import com.squareup.wire.shaded.okio.SegmentPool.take
 
 /**
  * This class pools segments in a lock-free singly-linked stack. Though this code is lock-free it

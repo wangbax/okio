@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package okio
+package com.squareup.wire.shaded.okio
 
-import okio.internal.HashFunction
-import okio.internal.commonCopyInto
-import okio.internal.commonEquals
-import okio.internal.commonGetSize
-import okio.internal.commonHashCode
-import okio.internal.commonInternalGet
-import okio.internal.commonRangeEquals
-import okio.internal.commonSubstring
-import okio.internal.commonToByteArray
-import okio.internal.commonWrite
-import okio.internal.forEachSegment
+import com.squareup.wire.shaded.okio.internal.HashFunction
+import com.squareup.wire.shaded.okio.internal.commonCopyInto
+import com.squareup.wire.shaded.okio.internal.commonEquals
+import com.squareup.wire.shaded.okio.internal.commonGetSize
+import com.squareup.wire.shaded.okio.internal.commonHashCode
+import com.squareup.wire.shaded.okio.internal.commonInternalGet
+import com.squareup.wire.shaded.okio.internal.commonRangeEquals
+import com.squareup.wire.shaded.okio.internal.commonSubstring
+import com.squareup.wire.shaded.okio.internal.commonToByteArray
+import com.squareup.wire.shaded.okio.internal.commonWrite
+import com.squareup.wire.shaded.okio.internal.forEachSegment
 
 internal actual class SegmentedByteString internal actual constructor(
   internal actual val segments: Array<ByteArray>,
