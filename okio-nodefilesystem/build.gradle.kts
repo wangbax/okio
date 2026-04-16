@@ -1,22 +1,24 @@
-import com.vanniktech.maven.publish.JavadocJar
-import com.vanniktech.maven.publish.KotlinMultiplatform
+import com.vanniktech.maven.publish.JavadocJar.Dokka
+import com.vanniktech.maven.publish.KotlinJs
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
-import org.jetbrains.kotlin.gradle.dsl.JsModuleKind
 
 plugins {
-  kotlin("multiplatform")
-  id("app.cash.burst")
+  kotlin("js")
   id("org.jetbrains.dokka")
   id("com.vanniktech.maven.publish.base")
   id("binary-compatibility-validator")
-  id("build-support")
 }
 
 kotlin {
   js {
-    compilerOptions {
-      moduleKind = JsModuleKind.MODULE_UMD
-      sourceMap = true
+    configure(listOf(compilations.getByName("main"), compilations.getByName("test"))) {
+      tasks.getByName(compileKotlinTaskName) {
+        kotlinOptions {
+          moduleKind = "umd"
+          sourceMap = true
+          metaInfo = true
+        }
+      }
     }
     nodejs {
       testTask {
@@ -27,19 +29,22 @@ kotlin {
     }
   }
   sourceSets {
+    all {
+      languageSettings.optIn("kotlin.RequiresOptIn")
+    }
     matching { it.name.endsWith("Test") }.all {
       languageSettings {
         optIn("kotlin.time.ExperimentalTime")
       }
     }
-    commonMain {
+    val main by getting {
       dependencies {
         implementation(projects.okio)
         // Uncomment this to generate fs.fs.module_node.kt. Use it when updating fs.kt.
         // implementation(npm("@types/node", "14.14.16", true))
       }
     }
-    commonTest {
+    val test by getting {
       dependencies {
         implementation(libs.kotlin.test)
         implementation(libs.kotlin.time)
@@ -53,6 +58,6 @@ kotlin {
 
 configure<MavenPublishBaseExtension> {
   configure(
-    KotlinMultiplatform(javadocJar = JavadocJar.Empty())
+    KotlinJs(javadocJar = Dokka("dokkaGfm"))
   )
 }

@@ -15,24 +15,27 @@
  */
 package okio
 
-import app.cash.burst.InterceptTest
 import java.io.IOException
 import java.io.InterruptedIOException
 import java.util.Random
 import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicInteger
-import kotlin.time.Duration.Companion.milliseconds
 import okio.ByteString.Companion.decodeHex
 import okio.HashingSink.Companion.sha1
 import okio.TestUtil.assumeNotWindows
+import okio.TestingExecutors.newScheduledExecutorService
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
 
 class PipeTest {
-  @InterceptTest
-  private val executorService = TestExecutor(2)
+  private val executorService = newScheduledExecutorService(2)
+
+  @After
+  fun tearDown() {
+    executorService.shutdown()
+  }
 
   @Test
   fun test() {
@@ -148,38 +151,36 @@ class PipeTest {
   @Test
   fun sinkBlocksOnSlowReader() {
     val pipe = Pipe(3L)
-    val position = AtomicInteger()
-
-    executorService.submit {
+    executorService.execute {
       val buffer = Buffer()
       Thread.sleep(1000L)
-      position.set(1)
       assertEquals(3, pipe.source.read(buffer, Long.MAX_VALUE))
       assertEquals("abc", buffer.readUtf8())
       Thread.sleep(1000L)
-      position.set(2)
       assertEquals(3, pipe.source.read(buffer, Long.MAX_VALUE))
       assertEquals("def", buffer.readUtf8())
       Thread.sleep(1000L)
-      position.set(3)
       assertEquals(3, pipe.source.read(buffer, Long.MAX_VALUE))
       assertEquals("ghi", buffer.readUtf8())
       Thread.sleep(1000L)
-      position.set(4)
       assertEquals(3, pipe.source.read(buffer, Long.MAX_VALUE))
       assertEquals("jkl", buffer.readUtf8())
     }
-
+    val start = now()
     pipe.sink.write(Buffer().writeUtf8("abcdefghijkl"), 12)
-    assertEquals(3, position.get())
+    assertElapsed(3000.0, start)
   }
 
   @Test
   fun sinkWriteFailsByClosedReader() {
     val pipe = Pipe(3L)
-    executorService.schedule(1000.milliseconds) {
-      pipe.source.close()
-    }
+    executorService.schedule(
+      {
+        pipe.source.close()
+      },
+      1000,
+      TimeUnit.MILLISECONDS,
+    )
     val start = now()
     try {
       pipe.sink.write(Buffer().writeUtf8("abcdef"), 6)
@@ -282,9 +283,13 @@ class PipeTest {
   @Test
   fun sourceReadUnblockedByClosedSink() {
     val pipe = Pipe(3L)
-    executorService.schedule(1000.milliseconds) {
-      pipe.sink.close()
-    }
+    executorService.schedule(
+      {
+        pipe.sink.close()
+      },
+      1000,
+      TimeUnit.MILLISECONDS,
+    )
     val start = now()
     val readBuffer = Buffer()
     assertEquals(-1, pipe.source.read(readBuffer, Long.MAX_VALUE))
@@ -312,39 +317,30 @@ class PipeTest {
   @Test
   fun sourceBlocksOnSlowWriter() {
     val pipe = Pipe(100L)
-    val position = AtomicInteger()
-
-    executorService.submit {
+    executorService.execute {
       Thread.sleep(1000L)
-      position.set(1)
       pipe.sink.write(Buffer().writeUtf8("abc"), 3)
       Thread.sleep(1000L)
-      position.set(2)
       pipe.sink.write(Buffer().writeUtf8("def"), 3)
       Thread.sleep(1000L)
-      position.set(3)
       pipe.sink.write(Buffer().writeUtf8("ghi"), 3)
       Thread.sleep(1000L)
-      position.set(4)
       pipe.sink.write(Buffer().writeUtf8("jkl"), 3)
     }
-
+    val start = now()
     val readBuffer = Buffer()
     assertEquals(3, pipe.source.read(readBuffer, Long.MAX_VALUE))
     assertEquals("abc", readBuffer.readUtf8())
-    assertEquals(1, position.get())
-
+    assertElapsed(1000.0, start)
     assertEquals(3, pipe.source.read(readBuffer, Long.MAX_VALUE))
     assertEquals("def", readBuffer.readUtf8())
-    assertEquals(2, position.get())
-
+    assertElapsed(2000.0, start)
     assertEquals(3, pipe.source.read(readBuffer, Long.MAX_VALUE))
     assertEquals("ghi", readBuffer.readUtf8())
-    assertEquals(3, position.get())
-
+    assertElapsed(3000.0, start)
     assertEquals(3, pipe.source.read(readBuffer, Long.MAX_VALUE))
     assertEquals("jkl", readBuffer.readUtf8())
-    assertEquals(4, position.get())
+    assertElapsed(4000.0, start)
   }
 
   /** Returns the nanotime in milliseconds as a double for measuring timeouts. */

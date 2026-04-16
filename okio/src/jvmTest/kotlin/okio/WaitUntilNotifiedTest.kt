@@ -15,36 +15,45 @@
  */
 package okio
 
-import app.cash.burst.Burst
-import app.cash.burst.InterceptTest
 import java.io.InterruptedIOException
 import java.util.concurrent.TimeUnit
-import kotlin.time.Duration.Companion.milliseconds
 import okio.TestUtil.assumeNotWindows
+import okio.TestingExecutors.newScheduledExecutorService
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
+import org.junit.runners.Parameterized.Parameters
 
-@Burst
+@RunWith(Parameterized::class)
 class WaitUntilNotifiedTest(
   factory: TimeoutFactory,
 ) {
   private val timeout = factory.newTimeout()
+  private val executorService = newScheduledExecutorService(0)
 
-  @InterceptTest
-  private val testExecutor = TestExecutor(0)
+  @After
+  fun tearDown() {
+    executorService.shutdown()
+  }
 
   @Test
   @Synchronized
   fun notified() {
     timeout.timeout(5000, TimeUnit.MILLISECONDS)
     val start = now()
-    testExecutor.schedule(1000.milliseconds) {
-      synchronized(this@WaitUntilNotifiedTest) {
-        (this as Object).notify()
-      }
-    }
+    executorService.schedule(
+      {
+        synchronized(this@WaitUntilNotifiedTest) {
+          (this as Object).notify()
+        }
+      },
+      1000,
+      TimeUnit.MILLISECONDS,
+    )
     timeout.waitUntilNotified(this)
     assertElapsed(1000.0, start)
   }
@@ -210,8 +219,18 @@ class WaitUntilNotifiedTest(
   }
 
   private fun Timeout.cancelLater(delay: Long) {
-    testExecutor.schedule(delay.milliseconds) {
-      cancel()
-    }
+    executorService.schedule(
+      {
+        cancel()
+      },
+      delay,
+      TimeUnit.MILLISECONDS,
+    )
+  }
+
+  companion object {
+    @Parameters(name = "{0}")
+    @JvmStatic
+    fun parameters(): List<Array<out Any?>> = TimeoutFactory.entries.map { arrayOf(it) }
   }
 }

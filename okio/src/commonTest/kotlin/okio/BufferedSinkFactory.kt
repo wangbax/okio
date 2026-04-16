@@ -16,19 +16,21 @@
 
 package okio
 
-enum class BufferedSinkFactory {
-  BasicBuffer {
-    override fun create(data: Buffer): BufferedSink {
-      return data
-    }
-  },
+internal interface BufferedSinkFactory {
 
-  SinkBuffer {
-    override fun create(data: Buffer): BufferedSink {
-      return (data as Sink).buffer()
-    }
-  },
-  ;
+  fun create(data: Buffer): BufferedSink
 
-  abstract fun create(data: Buffer): BufferedSink
+  companion object {
+    val BUFFER: BufferedSinkFactory = object : BufferedSinkFactory {
+      override fun create(data: Buffer): BufferedSink {
+        return data
+      }
+    }
+
+    val REAL_BUFFERED_SINK: BufferedSinkFactory = object : BufferedSinkFactory {
+      override fun create(data: Buffer): BufferedSink {
+        return (data as Sink).buffer()
+      }
+    }
+  }
 }

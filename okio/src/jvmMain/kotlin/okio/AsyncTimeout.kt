@@ -21,10 +21,6 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.Condition
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
-import okio.AsyncTimeout.Companion.IDLE_TIMEOUT_NANOS
-import okio.AsyncTimeout.Companion.condition
-import okio.AsyncTimeout.Companion.idleSentinel
-import okio.AsyncTimeout.Companion.queue
 
 /**
  * This timeout uses a background thread to take action exactly when the timeout occurs. Use this to
@@ -45,12 +41,11 @@ import okio.AsyncTimeout.Companion.queue
 open class AsyncTimeout : Timeout() {
   private var state = STATE_IDLE
 
-  /** Index in [queue], or -1 if this isn't currently in the heap. */
-  @JvmField internal var index: Int = -1
+  /** The next node in the linked list.  */
+  private var next: AsyncTimeout? = null
 
   /** If scheduled, this is the time that the watchdog should time this out.  */
-  internal var timeoutAt: Long = 0L
-    private set
+  private var timeoutAt = 0L
 
   fun enter() {
     val timeoutNanos = timeoutNanos()
@@ -62,7 +57,7 @@ open class AsyncTimeout : Timeout() {
     lock.withLock {
       check(state == STATE_IDLE) { "Unbalanced enter/exit" }
       state = STATE_IN_QUEUE
-      insertIntoQueue(this)
+      insertIntoQueue(this, timeoutNanos, hasDeadline)
     }
   }
 
@@ -73,7 +68,7 @@ open class AsyncTimeout : Timeout() {
       state = STATE_IDLE
 
       if (oldState == STATE_IN_QUEUE) {
-        queue.remove(this)
+        removeFromQueue(this)
         return false
       } else {
         return oldState == STATE_TIMED_OUT
@@ -86,7 +81,7 @@ open class AsyncTimeout : Timeout() {
 
     lock.withLock {
       if (state == STATE_IN_QUEUE) {
-        queue.remove(this)
+        removeFromQueue(this)
         state = STATE_CANCELED
       }
     }
@@ -96,26 +91,7 @@ open class AsyncTimeout : Timeout() {
    * Returns the amount of time left until the time out. This will be negative if the timeout has
    * elapsed and the timeout should occur immediately.
    */
-  internal fun remainingNanos(now: Long) = timeoutAt - now
-
-  /**
-   * Sets the timeoutAt value as a sum of [now] and the time to wait for this timeout.
-   */
-  internal fun setTimeoutAt(now: Long = System.nanoTime()) {
-    val timeoutNanos = timeoutNanos()
-    val hasDeadline = hasDeadline()
-    if (timeoutNanos() != 0L && hasDeadline()) {
-      // Compute the earliest event; either timeout or deadline. Because nanoTime can wrap
-      // around, minOf() is undefined for absolute values, but meaningful for relative ones.
-      timeoutAt = now + minOf(timeoutNanos, deadlineNanoTime() - now)
-    } else if (timeoutNanos != 0L) {
-      timeoutAt = now + timeoutNanos
-    } else if (hasDeadline) {
-      timeoutAt = deadlineNanoTime()
-    } else {
-      throw AssertionError()
-    }
-  }
+  private fun remainingNanos(now: Long) = timeoutAt - now
 
   /**
    * Invoked by the watchdog thread when the time between calls to [enter] and [exit] has exceeded
@@ -236,37 +212,26 @@ open class AsyncTimeout : Timeout() {
 
             // The queue is completely empty. Let this thread exit and let another watchdog thread
             // get created on the next call to scheduleTimeout().
-            if (timedOut === idleSentinel) {
-              idleSentinel = null
+            if (timedOut === head) {
+              head = null
               return
             }
           }
 
           // Close the timed out node, if one was found.
           timedOut?.timedOut()
-        } catch (_: InterruptedException) {
+        } catch (ignored: InterruptedException) {
         }
       }
     }
   }
 
   private companion object {
-    /**
-     * The watchdog thread processes this queue containing pending timeouts. It synchronizes on
-     * [condition] to guard accesses to the queue.
-     *
-     * The queue's first element is the next node to time out, which is null if the queue is empty.
-     *
-     * The [idleSentinel] is null until the watchdog thread is started and also after being
-     * idle for [AsyncTimeout.IDLE_TIMEOUT_MILLIS].
-     */
-    val queue = PriorityQueue()
-    var idleSentinel: AsyncTimeout? = null
     val lock: ReentrantLock = ReentrantLock()
     val condition: Condition = lock.newCondition()
 
     /**
-     * Don't write more than 64 KiB of data at a time, give or take a segment. Otherwise, slow
+     * Don't write more than 64 KiB of data at a time, give or take a segment. Otherwise slow
      * connections may suffer timeouts even when they're making (slow) progress. Without this,
      * writing a single 1 MiB buffer may never succeed on a sufficiently slow connection.
      */
@@ -313,40 +278,86 @@ open class AsyncTimeout : Timeout() {
     private const val STATE_TIMED_OUT = 2
     private const val STATE_CANCELED = 3
 
-    private fun insertIntoQueue(node: AsyncTimeout) {
-      // Start the watchdog thread and create the sentinel node when the first timeout is scheduled.
-      if (idleSentinel == null) {
-        idleSentinel = AsyncTimeout()
+    /**
+     * The watchdog thread processes a linked list of pending timeouts, sorted in the order to be
+     * triggered. This class synchronizes on AsyncTimeout.class. This lock guards the queue.
+     *
+     * Head's 'next' points to the first element of the linked list. The first element is the next
+     * node to time out, or null if the queue is empty. The head is null until the watchdog thread
+     * is started and also after being idle for [AsyncTimeout.IDLE_TIMEOUT_MILLIS].
+     */
+    private var head: AsyncTimeout? = null
+
+    private fun insertIntoQueue(node: AsyncTimeout, timeoutNanos: Long, hasDeadline: Boolean) {
+      // Start the watchdog thread and create the head node when the first timeout is scheduled.
+      if (head == null) {
+        head = AsyncTimeout()
         Watchdog().start()
       }
-      node.setTimeoutAt()
-      // Insert the node into the queue.
-      queue.add(node)
-      if (node.index == 1) {
-        // Wake up the watchdog when inserting at the front.
-        condition.signal()
+
+      val now = System.nanoTime()
+      if (timeoutNanos != 0L && hasDeadline) {
+        // Compute the earliest event; either timeout or deadline. Because nanoTime can wrap
+        // around, minOf() is undefined for absolute values, but meaningful for relative ones.
+        node.timeoutAt = now + minOf(timeoutNanos, node.deadlineNanoTime() - now)
+      } else if (timeoutNanos != 0L) {
+        node.timeoutAt = now + timeoutNanos
+      } else if (hasDeadline) {
+        node.timeoutAt = node.deadlineNanoTime()
+      } else {
+        throw AssertionError()
+      }
+
+      // Insert the node in sorted order.
+      val remainingNanos = node.remainingNanos(now)
+      var prev = head!!
+      while (true) {
+        if (prev.next == null || remainingNanos < prev.next!!.remainingNanos(now)) {
+          node.next = prev.next
+          prev.next = node
+          if (prev === head) {
+            // Wake up the watchdog when inserting at the front.
+            condition.signal()
+          }
+          break
+        }
+        prev = prev.next!!
       }
     }
 
+    /** Returns true if the timeout occurred. */
+    private fun removeFromQueue(node: AsyncTimeout) {
+      var prev = head
+      while (prev != null) {
+        if (prev.next === node) {
+          prev.next = node.next
+          node.next = null
+          return
+        }
+        prev = prev.next
+      }
+
+      error("node was not found in the queue")
+    }
+
     /**
-     * Removes and returns the next node to timeout, waiting for it to time out if necessary.
-     *
-     * This returns [idleSentinel] if the queue was empty when starting, and it continues to be
-     * empty after waiting [IDLE_TIMEOUT_NANOS].
-     *
-     * This returns null if a new node was inserted while waiting.
+     * Removes and returns the node at the head of the list, waiting for it to time out if
+     * necessary. This returns [head] if there was no node at the head of the list when starting,
+     * and there continues to be no node after waiting [IDLE_TIMEOUT_NANOS]. It returns null if a
+     * new node was inserted while waiting. Otherwise, this returns the node being waited on that
+     * has been removed.
      */
     @Throws(InterruptedException::class)
     fun awaitTimeout(): AsyncTimeout? {
       // Get the next eligible node.
-      val node = queue.first()
+      val node = head!!.next
 
       // The queue is empty. Wait until either something is enqueued or the idle timeout elapses.
       if (node == null) {
         val startNanos = System.nanoTime()
         condition.await(IDLE_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
-        return if (queue.first() == null && System.nanoTime() - startNanos >= IDLE_TIMEOUT_NANOS) {
-          idleSentinel // The idle timeout elapsed.
+        return if (head!!.next == null && System.nanoTime() - startNanos >= IDLE_TIMEOUT_NANOS) {
+          head // The idle timeout elapsed.
         } else {
           null // The situation has changed.
         }
@@ -354,160 +365,17 @@ open class AsyncTimeout : Timeout() {
 
       val waitNanos = node.remainingNanos(System.nanoTime())
 
-      // The first node in the queue hasn't timed out yet. Await that.
+      // The head of the queue hasn't timed out yet. Await that.
       if (waitNanos > 0) {
         condition.await(waitNanos, TimeUnit.NANOSECONDS)
         return null
       }
 
-      // The first node in the queue has timed out. Remove it.
-      queue.remove(node)
+      // The head of the queue has timed out. Remove it.
+      head!!.next = node.next
+      node.next = null
       node.state = STATE_TIMED_OUT
       return node
     }
-  }
-}
-
-/**
- * A min-heap binary heap, stored in an array.
- *
- * Nodes are [AsyncTimeout] instances directly. To support fast random removals, each [AsyncTimeout]
- * knows its index in the heap.
- *
- * The first node is at array index 1.
- *
- * https://en.wikipedia.org/wiki/Binary_heap
- */
-internal class PriorityQueue {
-  @JvmField
-  internal var size = 0
-
-  @JvmField
-  internal var array = arrayOfNulls<AsyncTimeout?>(8)
-
-  fun first(): AsyncTimeout? = array[1]
-
-  fun add(node: AsyncTimeout) {
-    val newSize = size + 1
-    size = newSize
-    if (newSize == array.size) {
-      val doubledArray = arrayOfNulls<AsyncTimeout?>(newSize * 2)
-      array.copyInto(doubledArray)
-      array = doubledArray
-    }
-
-    heapifyUp(newSize, node)
-  }
-
-  fun remove(node: AsyncTimeout) {
-    require(node.index != -1)
-    val oldSize = size
-
-    // Take the heap's last node to fill this node's position.
-    val removedIndex = node.index
-    val last = array[oldSize]!!
-    node.index = -1
-    array[oldSize] = null
-    size = oldSize - 1
-
-    if (node === last) return // The last node is the removed node.
-
-    val nodeCompareToLast = node.compareTo(last)
-    when {
-      // The last node fits in the vacated spot.
-      nodeCompareToLast == 0 -> {
-        array[removedIndex] = last
-        last.index = removedIndex
-      }
-
-      // The last node might be too large for the vacated spot.
-      nodeCompareToLast < 0 -> heapifyDown(removedIndex, last)
-
-      // The last node might be too small for the vacated spot.
-      else -> heapifyUp(removedIndex, last)
-    }
-  }
-
-  /**
-   * Put [node] in the right position in the heap by moving it up the heap.
-   *
-   * When this is done it'll put something in [vacantIndex], and [node] somewhere in the heap.
-   *
-   * @param vacantIndex an index in [array] that is vacant.
-   */
-  private fun heapifyUp(
-    vacantIndex: Int,
-    node: AsyncTimeout,
-  ) {
-    var vacantIndex = vacantIndex
-    while (true) {
-      val parentIndex = vacantIndex shr 1
-      if (parentIndex == 0) break // No parent.
-
-      val parentNode = array[parentIndex]!!
-      if (parentNode <= node) break // No need to swap with the parent.
-
-      // Put our parent in the vacant index, and its index is the new vacant index.
-      parentNode.index = vacantIndex
-      array[vacantIndex] = parentNode
-      vacantIndex = parentIndex
-    }
-
-    array[vacantIndex] = node
-    node.index = vacantIndex
-  }
-
-  /**
-   * Put [node] in the right position in the heap by moving it down the heap.
-   *
-   * When this is done it'll put something in [vacantIndex], and [node] somewhere in the heap.
-   *
-   * @param vacantIndex an index in [array] that is vacant.
-   */
-  private fun heapifyDown(
-    vacantIndex: Int,
-    node: AsyncTimeout,
-  ) {
-    var vacantIndex = vacantIndex
-    while (true) {
-      val leftIndex = vacantIndex shl 1
-      val rightIndex = leftIndex + 1
-
-      val smallestChild = when {
-        rightIndex <= size -> {
-          val leftNode = array[leftIndex]!!
-          val rightNode = array[rightIndex]!!
-          when {
-            leftNode < rightNode -> leftNode
-            else -> rightNode
-          }
-        }
-        leftIndex <= size -> {
-          array[leftIndex]!! // Left node.
-        }
-        else -> break // No children.
-      }
-
-      if (node <= smallestChild) break // No need to swap with the children.
-
-      // Put our smallest child in the vacant index, and its index is the new vacant index.
-      val newVacantIndex = smallestChild.index
-      smallestChild.index = vacantIndex
-      array[vacantIndex] = smallestChild
-      vacantIndex = newVacantIndex
-    }
-
-    array[vacantIndex] = node
-    node.index = vacantIndex
-  }
-
-  /**
-   * Compares timeouts by their [AsyncTimeout.timeoutAt] values, in ascending order.
-   */
-  @Suppress("NOTHING_TO_INLINE")
-  private inline operator fun AsyncTimeout.compareTo(other: AsyncTimeout): Int {
-    val a = timeoutAt
-    val b = other.timeoutAt
-    return 0L.compareTo(b - a)
   }
 }

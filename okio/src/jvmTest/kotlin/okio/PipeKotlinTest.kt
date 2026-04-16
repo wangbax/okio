@@ -15,14 +15,12 @@
  */
 package okio
 
-import app.cash.burst.InterceptTest
 import java.io.IOException
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.test.assertFailsWith
-import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.Duration.Companion.nanoseconds
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -35,8 +33,13 @@ class PipeKotlinTest {
   @JvmField @Rule
   val timeout = JUnitTimeout(5, TimeUnit.SECONDS)
 
-  @InterceptTest
-  private val executorService = TestExecutor(1)
+  private val executorService = TestingExecutors.newScheduledExecutorService(1)
+
+  @After
+  @Throws(Exception::class)
+  fun tearDown() {
+    executorService.shutdown()
+  }
 
   @Test fun pipe() {
     val pipe = Pipe(6)
@@ -102,10 +105,14 @@ class PipeKotlinTest {
     val foldSink = Buffer()
 
     val latch = CountDownLatch(1)
-    executorService.schedule(500.milliseconds) {
-      pipe.fold(foldSink)
-      latch.countDown()
-    }
+    executorService.schedule(
+      {
+        pipe.fold(foldSink)
+        latch.countDown()
+      },
+      500,
+      TimeUnit.MILLISECONDS,
+    )
 
     val sink = pipe.sink.buffer()
     sink.writeUtf8("abcdefgh") // Blocks writing 8 bytes to a 4 byte pipe.
@@ -561,18 +568,20 @@ class PipeKotlinTest {
   @Test fun sinkWriteThrowsIOExceptionUnblockBlockedWriter() {
     val pipe = Pipe(4)
 
-    val foldFuture = executorService.schedule(500.milliseconds) {
-      val foldFailure = assertFailsWith<IOException> {
-        pipe.fold(
-          object : ForwardingSink(blackholeSink()) {
+    val foldFuture = executorService.schedule(
+      {
+        val foldFailure = assertFailsWith<IOException> {
+          pipe.fold(object : ForwardingSink(blackholeSink()) {
             override fun write(source: Buffer, byteCount: Long) {
               throw IOException("boom")
             }
-          },
-        )
-      }
-      assertEquals("boom", foldFailure.message)
-    }
+          })
+        }
+        assertEquals("boom", foldFailure.message)
+      },
+      500,
+      TimeUnit.MILLISECONDS,
+    )
 
     val writeFailure = assertFailsWith<IOException> {
       val pipeSink = pipe.sink.buffer()
@@ -687,9 +696,13 @@ class PipeKotlinTest {
   @Test fun cancelInterruptsSinkWrite() {
     val pipe = Pipe(8)
 
-    executorService.schedule(smallerTimeoutNanos.nanoseconds) {
-      pipe.cancel()
-    }
+    executorService.schedule(
+      {
+        pipe.cancel()
+      },
+      smallerTimeoutNanos,
+      TimeUnit.NANOSECONDS,
+    )
 
     val pipeSink = pipe.sink.buffer()
     pipeSink.writeUtf8("hello world")
@@ -727,9 +740,13 @@ class PipeKotlinTest {
   @Test fun cancelInterruptsSourceRead() {
     val pipe = Pipe(8)
 
-    executorService.schedule(smallerTimeoutNanos.nanoseconds) {
-      pipe.cancel()
-    }
+    executorService.schedule(
+      {
+        pipe.cancel()
+      },
+      smallerTimeoutNanos,
+      TimeUnit.NANOSECONDS,
+    )
 
     val pipeSource = pipe.source.buffer()
 

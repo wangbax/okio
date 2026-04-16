@@ -7,7 +7,6 @@ plugins {
   // TODO: Restore Dokka once this issue is resolved.
   //     https://github.com/Kotlin/dokka/issues/3038
   // id("org.jetbrains.dokka")
-  id("app.cash.burst")
   id("com.vanniktech.maven.publish.base")
   id("build-support")
   id("binary-compatibility-validator")
@@ -58,7 +57,7 @@ configure<MavenPublishBaseExtension> {
  */
 val injectWasiInit by tasks.creating {
   dependsOn("compileTestDevelopmentExecutableKotlinWasmWasi")
-  val moduleName = "${rootProject.name}-${project.name}-test"
+  val moduleName = "${rootProject.name}-${project.name}-wasm-wasi-test"
 
   val entryPointMjs = File(
     buildDir,
@@ -71,7 +70,6 @@ val injectWasiInit by tasks.creating {
     val base = File(System.getProperty("java.io.tmpdir"), "okio-wasifilesystem-test")
     val baseA = File(base, "a")
     val baseB = File(base, "b")
-    val okio = rootDir
     base.mkdirs()
     baseA.mkdirs()
     baseB.mkdirs()
@@ -81,38 +79,29 @@ val injectWasiInit by tasks.creating {
       import { WASI } from 'wasi';
       import { argv, env } from 'node:process';
 
-      var wasiEnv = Object.assign({}, env);
-      wasiEnv['OKIO_ROOT'] = '/okio';
-      wasiEnv['WasiTest.testEnv.empty'] = '';
-      wasiEnv['WasiTest.testEnv.nonempty'] = 'hello';
-
-      const wasi = new WASI({
+      export const wasi = new WASI({
         version: 'preview1',
-        args: argv,
         preopens: {
           '/tmp': '$base',
           '/a': '$baseA',
-          '/b': '$baseB',
-          '/okio': '$okio'
-        },
-        env: wasiEnv,
+          '/b': '$baseB'
+        }
       });
 
-      const fs = await import('node:fs');
-      const url = await import('node:url');
-      const wasmBuffer = fs.readFileSync(url.fileURLToPath(import.meta.resolve('./$moduleName.wasm')));
+      const module = await import(/* webpackIgnore: true */'node:module');
+      const require = module.default.createRequire(import.meta.url);
+      const fs = require('fs');
+      const path = require('path');
+      const url = require('url');
+      const filepath = url.fileURLToPath(import.meta.url);
+      const dirpath = path.dirname(filepath);
+      const wasmBuffer = fs.readFileSync(path.resolve(dirpath, './$moduleName.wasm'));
       const wasmModule = new WebAssembly.Module(wasmBuffer);
       const wasmInstance = new WebAssembly.Instance(wasmModule, wasi.getImportObject());
 
       wasi.initialize(wasmInstance);
 
-      const exports = wasmInstance.exports
-
-      export const {
-        memory,
-        _initialize,
-        startUnitTests
-      } = exports
+      export default wasmInstance.exports;
       """.trimIndent()
     )
   }

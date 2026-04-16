@@ -98,7 +98,7 @@ Releases
 Our [change log][changelog] has release history.
 
 ```kotlin
-implementation("com.squareup.okio:okio:3.17.0")
+implementation("com.squareup.okio:okio:3.9.1")
 ```
 
 <details>
@@ -106,11 +106,11 @@ implementation("com.squareup.okio:okio:3.17.0")
 
 ```kotlin
 repositories {
-  maven("https://central.sonatype.com/repository/maven-snapshots/")
+    maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }
 
 dependencies {
-  implementation("com.squareup.okio:okio:3.18.0-SNAPSHOT")
+   implementation("com.squareup.okio:okio:3.9.1")
 }
 ```
 

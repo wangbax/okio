@@ -22,7 +22,7 @@ import java.nio.file.FileSystems
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.fail
-import kotlin.time.Clock
+import kotlinx.datetime.Clock
 import okio.FileSystem.Companion.asOkioFileSystem
 import org.junit.Test
 
@@ -37,7 +37,6 @@ class NioSystemFileSystemTest : AbstractFileSystemTest(
   allowClobberingEmptyDirectories = Path.DIRECTORY_SEPARATOR == "\\",
   allowAtomicMoveFromFileToDirectory = false,
   temporaryDirectory = FileSystem.SYSTEM_TEMPORARY_DIRECTORY,
-  closeBehavior = CloseBehavior.DoesNothing,
 )
 
 class JvmSystemFileSystemTest : AbstractFileSystemTest(
@@ -47,7 +46,6 @@ class JvmSystemFileSystemTest : AbstractFileSystemTest(
   allowClobberingEmptyDirectories = Path.DIRECTORY_SEPARATOR == "\\",
   allowAtomicMoveFromFileToDirectory = false,
   temporaryDirectory = FileSystem.SYSTEM_TEMPORARY_DIRECTORY,
-  closeBehavior = CloseBehavior.DoesNothing,
 ) {
 
   @Test fun checkInterruptedBeforeDeleting() {
@@ -75,7 +73,6 @@ class NioJimFileSystemWrappingFileSystemTest : AbstractFileSystemTest(
   allowClobberingEmptyDirectories = true,
   allowAtomicMoveFromFileToDirectory = true,
   temporaryDirectory = FileSystem.SYSTEM_TEMPORARY_DIRECTORY,
-  closeBehavior = CloseBehavior.Closes,
 )
 
 class NioDefaultFileSystemWrappingFileSystemTest : AbstractFileSystemTest(
@@ -86,5 +83,4 @@ class NioDefaultFileSystemWrappingFileSystemTest : AbstractFileSystemTest(
   allowAtomicMoveFromFileToDirectory = false,
   allowRenameWhenTargetIsOpen = Path.DIRECTORY_SEPARATOR != "\\",
   temporaryDirectory = FileSystem.SYSTEM_TEMPORARY_DIRECTORY,
-  closeBehavior = CloseBehavior.Unsupported,
 )

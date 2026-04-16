@@ -20,26 +20,26 @@ import okio.TestUtil.bufferWithRandomSegmentLayout
 import okio.TestUtil.bufferWithSegments
 
 enum class BufferFactory {
-  Empty {
+  EMPTY {
     override fun newBuffer(): Buffer {
       return Buffer()
     }
   },
 
-  SmallBuffer {
+  SMALL_BUFFER {
     override fun newBuffer(): Buffer {
       return Buffer().writeUtf8("abcde")
     }
   },
 
-  SmallSegmentedBuffer {
+  SMALL_SEGMENTED_BUFFER {
     @Throws(Exception::class)
     override fun newBuffer(): Buffer {
       return bufferWithSegments("abc", "defg", "hijkl")
     }
   },
 
-  LargeBuffer {
+  LARGE_BUFFER {
     @Throws(Exception::class)
     override fun newBuffer(): Buffer {
       val dice = Random(0)
@@ -50,7 +50,7 @@ enum class BufferFactory {
     }
   },
 
-  LargeBufferWithRandomLayout {
+  LARGE_BUFFER_WITH_RANDOM_LAYOUT {
     @Throws(Exception::class)
     override fun newBuffer(): Buffer {
       val dice = Random(0)

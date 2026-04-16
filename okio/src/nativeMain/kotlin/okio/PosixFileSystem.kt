@@ -91,7 +91,13 @@ internal object PosixFileSystem : FileSystem() {
   override fun createDirectory(dir: Path, mustCreate: Boolean) {
     val result = variantMkdir(dir)
     if (result != 0) {
-      if (errno == EEXIST && !mustCreate) return // Already exists.
+      if (errno == EEXIST) {
+        if (mustCreate) {
+          errnoToIOException(errno)
+        } else {
+          return
+        }
+      }
       throw errnoToIOException(errno)
     }
   }

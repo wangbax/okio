@@ -24,6 +24,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinJsPluginWrapper
 import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinMetadataTarget
+import org.jetbrains.kotlin.gradle.targets.js.KotlinJsTarget
 
 /**
  * Collect all the root project's multiplatform targets and add them to the BOM.
@@ -59,7 +60,8 @@ fun Project.collectBomConstraints() {
 private fun Project.dependencyConstraint(target: KotlinTarget): String {
   val artifactId = when (target) {
     is KotlinMetadataTarget -> name
-    else -> "$name-${target.targetName.lowercase(Locale.ROOT)}"
+    is KotlinJsTarget -> "$name-js"
+    else -> "$name-${target.targetName.toLowerCase(Locale.ROOT)}"
   }
   return "$group:$artifactId:$version"
 }

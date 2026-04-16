@@ -27,7 +27,7 @@ actual class HashingSink internal constructor(
   private val hashFunction: HashFunction,
 ) : Sink {
 
-  actual override fun write(source: Buffer, byteCount: Long) {
+  override fun write(source: Buffer, byteCount: Long) {
     checkOffsetAndCount(source.size, 0, byteCount)
 
     // Hash byteCount bytes from the prefix of source.
@@ -44,11 +44,11 @@ actual class HashingSink internal constructor(
     sink.write(source, byteCount)
   }
 
-  actual override fun flush() = sink.flush()
+  override fun flush() = sink.flush()
 
-  actual override fun timeout(): Timeout = sink.timeout()
+  override fun timeout(): Timeout = sink.timeout()
 
-  actual override fun close() = sink.close()
+  override fun close() = sink.close()
 
   /**
    * Returns the hash of the bytes accepted thus far and resets the internal state of this sink.

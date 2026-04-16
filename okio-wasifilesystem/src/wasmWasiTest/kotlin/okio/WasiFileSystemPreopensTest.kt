@@ -15,7 +15,7 @@
  */
 package okio
 
-import app.cash.burst.InterceptTest
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -29,14 +29,15 @@ import okio.Path.Companion.toPath
  */
 class WasiFileSystemPreopensTest {
   private val fileSystem = WasiFileSystem
+  private val testId = "${this::class.simpleName}-${randomToken(16)}"
+  private val baseA: Path = "/a".toPath() / testId
+  private val baseB: Path = "/b".toPath() / testId
 
-  @InterceptTest
-  private val testDirectoryA = TestDirectory(fileSystem, "/a".toPath())
-  private val baseA: Path get() = testDirectoryA.path
-
-  @InterceptTest
-  private val testDirectoryB = TestDirectory(fileSystem, "/b".toPath())
-  private val baseB: Path get() = testDirectoryB.path
+  @BeforeTest
+  fun setUp() {
+    fileSystem.createDirectory(baseA)
+    fileSystem.createDirectory(baseB)
+  }
 
   @Test
   fun operateOnPreopens() {
@@ -74,7 +75,7 @@ class WasiFileSystemPreopensTest {
 
   @Test
   fun cannotOperateOutsideOfPreopens() {
-    val noPreopen = "/c/absent".toPath()
+    val noPreopen = "/c".toPath() / testId
     assertFailsWith<FileNotFoundException> {
       fileSystem.createDirectory(noPreopen)
     }

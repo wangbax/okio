@@ -15,8 +15,6 @@
  */
 package okio
 
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
 import okio.internal.commonCopy
 import okio.internal.commonCreateDirectories
 import okio.internal.commonDeleteRecursively
@@ -24,7 +22,7 @@ import okio.internal.commonExists
 import okio.internal.commonListRecursively
 import okio.internal.commonMetadata
 
-actual abstract class FileSystem : Closeable {
+actual abstract class FileSystem {
   @Throws(IOException::class)
   actual abstract fun canonicalize(path: Path): Path
 
@@ -60,10 +58,6 @@ actual abstract class FileSystem : Closeable {
 
   @Throws(IOException::class)
   actual inline fun <T> read(file: Path, readerAction: BufferedSource.() -> T): T {
-    contract {
-      callsInPlace(readerAction, InvocationKind.EXACTLY_ONCE)
-    }
-
     return source(file).buffer().use {
       it.readerAction()
     }
@@ -78,10 +72,6 @@ actual abstract class FileSystem : Closeable {
     mustCreate: Boolean,
     writerAction: BufferedSink.() -> T,
   ): T {
-    contract {
-      callsInPlace(writerAction, InvocationKind.EXACTLY_ONCE)
-    }
-
     return sink(file, mustCreate).buffer().use {
       it.writerAction()
     }
@@ -94,8 +84,7 @@ actual abstract class FileSystem : Closeable {
   actual abstract fun createDirectory(dir: Path, mustCreate: Boolean)
 
   @Throws(IOException::class)
-  actual fun createDirectories(dir: Path, mustCreate: Boolean): Unit =
-    commonCreateDirectories(dir, mustCreate)
+  actual fun createDirectories(dir: Path, mustCreate: Boolean): Unit = commonCreateDirectories(dir, mustCreate)
 
   @Throws(IOException::class)
   actual abstract fun atomicMove(source: Path, target: Path)
@@ -112,10 +101,6 @@ actual abstract class FileSystem : Closeable {
 
   @Throws(IOException::class)
   actual abstract fun createSymlink(source: Path, target: Path)
-
-  @Throws(IOException::class)
-  actual override fun close() {
-  }
 
   actual companion object {
     /**

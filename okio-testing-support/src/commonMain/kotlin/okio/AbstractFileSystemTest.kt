@@ -15,7 +15,7 @@
  */
 package okio
 
-import app.cash.burst.InterceptTest
+import kotlin.test.BeforeTest
 import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
@@ -25,11 +25,9 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 import kotlin.test.fail
-import kotlin.time.Clock
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
-import kotlin.time.Instant
 import okio.ByteString.Companion.encodeUtf8
 import okio.ByteString.Companion.toByteString
 import okio.Path.Companion.toPath
@@ -42,16 +40,17 @@ abstract class AbstractFileSystemTest(
   val allowClobberingEmptyDirectories: Boolean,
   val allowAtomicMoveFromFileToDirectory: Boolean,
   val allowRenameWhenTargetIsOpen: Boolean = !windowsLimitations,
-  val closeBehavior: CloseBehavior,
   temporaryDirectory: Path,
 ) {
-  @InterceptTest
-  private val baseTestDirectory = TestDirectory(fileSystem, temporaryDirectory)
-  protected val base: Path get() = baseTestDirectory.path
-
+  val base: Path = temporaryDirectory / "${this::class.simpleName}-${randomToken(16)}"
   private val isNodeJsFileSystem = fileSystem::class.simpleName?.startsWith("NodeJs") ?: false
   private val isWasiFileSystem = fileSystem::class.simpleName?.startsWith("Wasi") ?: false
   private val isWrappingJimFileSystem = this::class.simpleName?.contains("JimFileSystem") ?: false
+
+  @BeforeTest
+  fun setUp() {
+    fileSystem.createDirectories(base)
+  }
 
   @Test
   fun doesNotExistsWithInvalidPathDoesNotThrow() {
@@ -1471,27 +1470,6 @@ abstract class AbstractFileSystemTest(
     assertInRange(metadata.lastAccessedAt, minTime, maxTime)
   }
 
-  /** https://github.com/square/okio/issues/1755 */
-  @Test
-  fun fileMetadataTimestampsAreDistinct() {
-    if (fileSystem.isFakeFileSystem) return
-    if (fileSystem is ForwardingFileSystem) return
-    if (isJimFileSystem()) return
-    if (!fileSystemHasGoodMetadata) return
-
-    // These timestamps are hardcoded in the following Gradle tasks:
-    //   :okio-testing-support:touchAbstractFileSystemTestFilesCreatedAt
-    //   :okio-testing-support:touchAbstractFileSystemTestFilesModifiedAt
-    val createdAt = fromIso8601String("2026-01-01T01:01:01Z")
-    val lastModifiedAt = fromIso8601String("2026-02-02T02:02:02Z")
-
-    val path = okioRoot / "okio-testing-support" / "build/AbstractFileSystemTestFiles/metadata.txt"
-    val metadata = fileSystem.metadata(path)
-    assertTrue(metadata.isRegularFile)
-    assertInRange(metadata.createdAt, createdAt, createdAt)
-    assertInRange(metadata.lastModifiedAt, lastModifiedAt, lastModifiedAt)
-  }
-
   @Test
   fun directoryMetadata() {
     val minTime = clock.now()
@@ -2575,110 +2553,6 @@ abstract class AbstractFileSystemTest(
     }
   }
 
-  @Test
-  fun readAfterFileSystemClose() {
-    val path = base / "file"
-
-    path.writeUtf8("hello, world!")
-
-    when (closeBehavior) {
-      CloseBehavior.Closes -> {
-        fileSystem.close()
-
-        assertFailsWith<IllegalStateException> {
-          fileSystem.canonicalize(path)
-        }
-        assertFailsWith<IllegalStateException> {
-          fileSystem.exists(path)
-        }
-        assertFailsWith<IllegalStateException> {
-          fileSystem.metadata(path)
-        }
-        assertFailsWith<IllegalStateException> {
-          fileSystem.openReadOnly(path)
-        }
-        assertFailsWith<IllegalStateException> {
-          fileSystem.source(path)
-        }
-      }
-
-      CloseBehavior.DoesNothing -> {
-        fileSystem.close()
-        fileSystem.canonicalize(path)
-        fileSystem.exists(path)
-        fileSystem.metadata(path)
-        fileSystem.openReadOnly(path).use {
-        }
-        fileSystem.source(path).use {
-        }
-      }
-
-      CloseBehavior.Unsupported -> {
-        assertFailsWith<UnsupportedOperationException> {
-          fileSystem.close()
-        }
-      }
-    }
-  }
-
-  @Test
-  fun writeAfterFileSystemClose() {
-    val path = base / "file"
-
-    when (closeBehavior) {
-      CloseBehavior.Closes -> {
-        fileSystem.close()
-
-        assertFailsWith<IllegalStateException> {
-          fileSystem.appendingSink(path)
-        }
-        assertFailsWith<IllegalStateException> {
-          fileSystem.atomicMove(path, base / "file2")
-        }
-        assertFailsWith<IllegalStateException> {
-          fileSystem.createDirectory(base / "directory")
-        }
-        assertFailsWith<IllegalStateException> {
-          fileSystem.delete(path)
-        }
-        assertFailsWith<IllegalStateException> {
-          fileSystem.openReadWrite(path)
-        }
-        assertFailsWith<IllegalStateException> {
-          fileSystem.sink(path)
-        }
-        if (supportsSymlink()) {
-          assertFailsWith<IllegalStateException> {
-            fileSystem.createSymlink(base / "symlink", base)
-          }
-        }
-      }
-
-      CloseBehavior.DoesNothing -> {
-        fileSystem.close()
-
-        fileSystem.appendingSink(path).use {
-        }
-        fileSystem.atomicMove(path, base / "file2")
-        fileSystem.createDirectory(base / "directory")
-        fileSystem.delete(path)
-        fileSystem.sink(path).use {
-        }
-        fileSystem.openReadWrite(path).use {
-        }
-        if (supportsSymlink()) {
-          fileSystem.createSymlink(base / "symlink", base)
-        }
-      }
-
-      CloseBehavior.Unsupported -> {
-        assertFailsWith<UnsupportedOperationException> {
-          fileSystem.close()
-        }
-      }
-    }
-  }
-
   protected fun supportsSymlink(): Boolean {
     if (fileSystem.isFakeFileSystem) return fileSystem.allowSymlinks
     if (windowsLimitations) return false
@@ -2728,7 +2602,7 @@ abstract class AbstractFileSystemTest(
    */
   private fun Instant.minFileSystemTime(): Instant {
     val paddedInstant = minus(200.milliseconds)
-    return Instant.fromEpochSeconds(paddedInstant.epochSeconds)
+    return fromEpochSeconds(paddedInstant.epochSeconds)
   }
 
   /**
@@ -2743,7 +2617,7 @@ abstract class AbstractFileSystemTest(
    */
   private fun Instant.maxFileSystemTime(): Instant {
     val paddedInstant = plus(200.milliseconds)
-    return Instant.fromEpochSeconds(paddedInstant.plus(2.seconds).epochSeconds)
+    return fromEpochSeconds(paddedInstant.plus(2.seconds).epochSeconds)
   }
 
   /**

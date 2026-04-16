@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.api.Project
 import org.gradle.kotlin.dsl.get
-import org.jetbrains.kotlin.gradle.dsl.JsModuleKind.MODULE_UMD
+import org.gradle.kotlin.dsl.withType
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
+import org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 fun KotlinMultiplatformExtension.configureOrCreateOkioPlatforms() {
   jvm {
@@ -116,9 +121,12 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.createSourceSet(
 
 fun KotlinMultiplatformExtension.configureOrCreateJsPlatforms() {
   js {
-    compilerOptions {
-      moduleKind.set(MODULE_UMD)
-      sourceMap.set(true)
+    compilations.all {
+      kotlinOptions {
+        moduleKind = "umd"
+        sourceMap = true
+        metaInfo = true
+      }
     }
     nodejs {
       testTask {

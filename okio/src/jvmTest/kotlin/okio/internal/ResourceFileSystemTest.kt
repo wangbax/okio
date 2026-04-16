@@ -15,19 +15,6 @@
  */
 package okio.internal
 
-import app.cash.burst.InterceptTest
-import assertk.assertThat
-import assertk.assertions.containsAtLeast
-import assertk.assertions.containsExactly
-import assertk.assertions.containsExactlyInAnyOrder
-import assertk.assertions.hasMessage
-import assertk.assertions.isEmpty
-import assertk.assertions.isEqualTo
-import assertk.assertions.isFalse
-import assertk.assertions.isGreaterThan
-import assertk.assertions.isNotNull
-import assertk.assertions.isNull
-import assertk.assertions.isTrue
 import java.net.URL
 import java.net.URLClassLoader
 import java.util.Enumeration
@@ -43,16 +30,14 @@ import okio.ForwardingFileSystem
 import okio.IOException
 import okio.Path
 import okio.Path.Companion.toPath
-import okio.TestDirectory
 import okio.ZipBuilder
+import okio.randomToken
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
 class ResourceFileSystemTest {
   private val fileSystem = FileSystem.RESOURCES as ResourceFileSystem
-
-  @InterceptTest
-  private val baseTestDirectory = TestDirectory(FileSystem.SYSTEM)
-  private val base: Path get() = baseTestDirectory.path
+  private var base = FileSystem.SYSTEM_TEMPORARY_DIRECTORY / randomToken(16)
 
   @Test
   fun testResourceA() {
@@ -110,11 +95,8 @@ class ResourceFileSystemTest {
       resourceFileSystem.metadata("directory/subdirectory/child.txt".toPath()).isRegularFile,
     ).isTrue()
 
-    assertThat(resourceFileSystem.list("/".toPath())).containsExactlyInAnyOrder(
-      "/META-INF".toPath(),
-      "/hello.txt".toPath(),
-      "/directory".toPath(),
-    )
+    assertThat(resourceFileSystem.list("/".toPath()))
+      .hasSameElementsAs(listOf("/META-INF".toPath(), "/hello.txt".toPath(), "/directory".toPath()))
     assertThat(resourceFileSystem.list("/directory".toPath()))
       .containsExactly("/directory/subdirectory".toPath())
     assertThat(resourceFileSystem.list("/directory/subdirectory".toPath()))
@@ -158,14 +140,14 @@ class ResourceFileSystemTest {
     assertThat(resourceFileSystem.metadata("/colors/green.txt".toPath()).isRegularFile).isTrue()
     assertThat(resourceFileSystem.metadata("/colors/blue.txt".toPath()).isRegularFile).isTrue()
 
-    assertThat(resourceFileSystem.list("/".toPath())).containsExactlyInAnyOrder(
-      "/META-INF".toPath(),
-      "/colors".toPath(),
-    )
-    assertThat(resourceFileSystem.list("/colors".toPath())).containsExactlyInAnyOrder(
-      "/colors/red.txt".toPath(),
-      "/colors/green.txt".toPath(),
-      "/colors/blue.txt".toPath(),
+    assertThat(resourceFileSystem.list("/".toPath()))
+      .hasSameElementsAs(listOf("/META-INF".toPath(), "/colors".toPath()))
+    assertThat(resourceFileSystem.list("/colors".toPath())).hasSameElementsAs(
+      listOf(
+        "/colors/red.txt".toPath(),
+        "/colors/green.txt".toPath(),
+        "/colors/blue.txt".toPath(),
+      ),
     )
 
     assertThat(resourceFileSystem.metadata("/".toPath()).isDirectory).isTrue()
@@ -205,13 +187,14 @@ class ResourceFileSystemTest {
     assertThat(resourceFileSystem.metadata("/colors/green.txt".toPath()).isRegularFile).isTrue()
     assertThat(resourceFileSystem.metadata("/colors/blue.txt".toPath()).isRegularFile).isTrue()
 
-    assertThat(resourceFileSystem.list("/".toPath())).containsExactlyInAnyOrder(
-      "/colors".toPath(),
-    )
-    assertThat(resourceFileSystem.list("/colors".toPath())).containsExactlyInAnyOrder(
-      "/colors/red.txt".toPath(),
-      "/colors/green.txt".toPath(),
-      "/colors/blue.txt".toPath(),
+    assertThat(resourceFileSystem.list("/".toPath()))
+      .hasSameElementsAs(listOf("/colors".toPath()))
+    assertThat(resourceFileSystem.list("/colors".toPath())).hasSameElementsAs(
+      listOf(
+        "/colors/red.txt".toPath(),
+        "/colors/green.txt".toPath(),
+        "/colors/blue.txt".toPath(),
+      ),
     )
 
     assertThat(resourceFileSystem.metadata("/".toPath()).isDirectory).isTrue()
@@ -252,14 +235,14 @@ class ResourceFileSystemTest {
     assertThat(resourceFileSystem.metadata("/colors/green.txt".toPath()).isRegularFile).isTrue()
     assertThat(resourceFileSystem.metadata("/colors/blue.txt".toPath()).isRegularFile).isTrue()
 
-    assertThat(resourceFileSystem.list("/".toPath())).containsExactlyInAnyOrder(
-      "/META-INF".toPath(),
-      "/colors".toPath(),
-    )
-    assertThat(resourceFileSystem.list("/colors".toPath())).containsExactlyInAnyOrder(
-      "/colors/red.txt".toPath(),
-      "/colors/green.txt".toPath(),
-      "/colors/blue.txt".toPath(),
+    assertThat(resourceFileSystem.list("/".toPath()))
+      .hasSameElementsAs(listOf("/META-INF".toPath(), "/colors".toPath()))
+    assertThat(resourceFileSystem.list("/colors".toPath())).hasSameElementsAs(
+      listOf(
+        "/colors/red.txt".toPath(),
+        "/colors/green.txt".toPath(),
+        "/colors/blue.txt".toPath(),
+      ),
     )
 
     assertThat(resourceFileSystem.metadata("/".toPath()).isDirectory).isTrue()
@@ -287,7 +270,7 @@ class ResourceFileSystemTest {
     val metadata = fileSystem.metadataOrNull(path)!!
 
     assertThat(metadata.isDirectory).isTrue()
-    assertThat(metadata.createdAtMillis).isNotNull().isGreaterThan(1L)
+    assertThat(metadata.createdAtMillis).isGreaterThan(1L)
 
     assertThat(fileSystem.list(path).map { it.name }).containsExactly("b.txt")
   }
@@ -298,7 +281,7 @@ class ResourceFileSystemTest {
 
     val metadata = fileSystem.metadataOrNull(path)!!
 
-    assertThat(metadata.size).isNotNull().isGreaterThan(10000L)
+    assertThat(metadata.size).isGreaterThan(10000L)
     assertThat(metadata.isRegularFile).isTrue()
     assertThat(metadata.isDirectory).isFalse()
 
@@ -341,10 +324,10 @@ class ResourceFileSystemTest {
     val path = "org/junit/".toPath()
 
     val metadata = fileSystem.metadataOrNull(path)
-    assertThat(metadata?.isDirectory).isNotNull().isTrue()
+    assertThat(metadata?.isDirectory).isTrue()
 
     val files = fileSystem.list(path).map { it.name }
-    assertThat(files).containsAtLeast("matchers", "rules")
+    assertThat(files).contains("matchers", "rules")
     assertThat(files.filter { it.endsWith(".class") }).isEmpty()
   }
 

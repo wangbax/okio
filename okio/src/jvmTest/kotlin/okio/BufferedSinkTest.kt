@@ -15,7 +15,6 @@
  */
 package okio
 
-import app.cash.burst.Burst
 import java.io.EOFException
 import java.math.BigInteger
 import java.nio.ByteBuffer
@@ -28,21 +27,27 @@ import okio.TestUtil.segmentSizes
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
+import org.junit.runners.Parameterized.Parameters
 
-@Burst
+@RunWith(Parameterized::class)
 class BufferedSinkTest(
   factory: Factory,
 ) {
-  enum class Factory {
-    NewBuffer {
-      override fun create(data: Buffer) = data
-    },
-    SinkBuffer {
-      override fun create(data: Buffer) = (data as Sink).buffer()
-    },
-    ;
+  interface Factory {
+    fun create(data: Buffer): BufferedSink
 
-    abstract fun create(data: Buffer): BufferedSink
+    companion object {
+      val BUFFER: Factory = object : Factory {
+        override fun create(data: Buffer) = data
+        override fun toString() = "Buffer"
+      }
+      val REAL_BUFFERED_SINK: Factory = object : Factory {
+        override fun create(data: Buffer) = (data as Sink).buffer()
+        override fun toString() = "RealBufferedSink"
+      }
+    }
   }
 
   private val data: Buffer = Buffer()
@@ -371,5 +376,14 @@ class BufferedSinkTest(
     val expected = String.format("%x", value) + "zzz"
     val actual = data.readUtf8()
     assertEquals("$value expected $expected but was $actual", actual, expected)
+  }
+
+  companion object {
+    @JvmStatic
+    @Parameters(name = "{0}")
+    fun parameters(): List<Array<Any>> = listOf(
+      arrayOf(Factory.BUFFER),
+      arrayOf(Factory.REAL_BUFFERED_SINK),
+    )
   }
 }

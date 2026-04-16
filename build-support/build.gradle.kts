@@ -22,6 +22,5 @@ gradlePlugin {
 }
 
 dependencies {
-  implementation(libs.kotlin.gradle.plugin)
-  implementation(libs.tapmoc.gradle.plugin)
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.25")
 }

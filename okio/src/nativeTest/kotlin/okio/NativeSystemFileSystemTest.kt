@@ -15,7 +15,7 @@
  */
 package okio
 
-import kotlin.time.Clock
+import kotlinx.datetime.Clock
 
 class NativeSystemFileSystemTest : AbstractFileSystemTest(
   clock = Clock.System,
@@ -24,5 +24,4 @@ class NativeSystemFileSystemTest : AbstractFileSystemTest(
   allowClobberingEmptyDirectories = Path.DIRECTORY_SEPARATOR == "\\",
   allowAtomicMoveFromFileToDirectory = false,
   temporaryDirectory = FileSystem.SYSTEM_TEMPORARY_DIRECTORY,
-  closeBehavior = CloseBehavior.DoesNothing,
 )

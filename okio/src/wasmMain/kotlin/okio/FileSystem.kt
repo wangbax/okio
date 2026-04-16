@@ -15,9 +15,6 @@
  */
 package okio
 
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
 import okio.Path.Companion.toPath
 import okio.internal.commonCopy
 import okio.internal.commonCreateDirectories
@@ -26,8 +23,7 @@ import okio.internal.commonExists
 import okio.internal.commonListRecursively
 import okio.internal.commonMetadata
 
-@OptIn(ExperimentalContracts::class)
-actual abstract class FileSystem : Closeable {
+actual abstract class FileSystem {
   actual abstract fun canonicalize(path: Path): Path
 
   actual fun metadata(path: Path): FileMetadata = commonMetadata(path)
@@ -54,10 +50,6 @@ actual abstract class FileSystem : Closeable {
   actual abstract fun source(file: Path): Source
 
   actual inline fun <T> read(file: Path, readerAction: BufferedSource.() -> T): T {
-    contract {
-      callsInPlace(readerAction, InvocationKind.EXACTLY_ONCE)
-    }
-
     return source(file).buffer().use {
       it.readerAction()
     }
@@ -70,10 +62,6 @@ actual abstract class FileSystem : Closeable {
     mustCreate: Boolean,
     writerAction: BufferedSink.() -> T,
   ): T {
-    contract {
-      callsInPlace(writerAction, InvocationKind.EXACTLY_ONCE)
-    }
-
     return sink(file, mustCreate).buffer().use {
       it.writerAction()
     }
@@ -95,9 +83,6 @@ actual abstract class FileSystem : Closeable {
     commonDeleteRecursively(fileOrDirectory, mustExist)
 
   actual abstract fun createSymlink(source: Path, target: Path)
-
-  actual override fun close() {
-  }
 
   actual companion object {
     actual val SYSTEM_TEMPORARY_DIRECTORY: Path = "/tmp".toPath()

@@ -16,7 +16,6 @@
 
 package okio
 
-import app.cash.burst.Burst
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -25,8 +24,14 @@ import kotlin.test.assertTrue
 import okio.ByteString.Companion.decodeHex
 import okio.ByteString.Companion.encodeUtf8
 
-@Burst
-class CommonBufferedSourceTest(
+class BufferSourceTest : AbstractBufferedSourceTest(BufferedSourceFactory.BUFFER)
+class RealBufferedSourceTest : AbstractBufferedSourceTest(BufferedSourceFactory.REAL_BUFFERED_SOURCE)
+class OneByteAtATimeBufferedSourceTest : AbstractBufferedSourceTest(BufferedSourceFactory.ONE_BYTE_AT_A_TIME_BUFFERED_SOURCE)
+class OneByteAtATimeBufferTest : AbstractBufferedSourceTest(BufferedSourceFactory.ONE_BYTE_AT_A_TIME_BUFFER)
+class PeekBufferTest : AbstractBufferedSourceTest(BufferedSourceFactory.PEEK_BUFFER)
+class PeekBufferedSourceTest : AbstractBufferedSourceTest(BufferedSourceFactory.PEEK_BUFFERED_SOURCE)
+
+abstract class AbstractBufferedSourceTest internal constructor(
   private val factory: BufferedSourceFactory,
 ) {
   private val sink: BufferedSink
@@ -716,7 +721,7 @@ class CommonBufferedSourceTest(
     var e = assertFailsWith<IllegalArgumentException> {
       source.indexOf(ByteString.of())
     }
-    assertEquals("byteCount == 0", e.message)
+    assertEquals("bytes is empty", e.message)
 
     e = assertFailsWith<IllegalArgumentException> {
       source.indexOf("hi".encodeUtf8(), -1)
@@ -725,7 +730,7 @@ class CommonBufferedSourceTest(
   }
 
   /**
-   * With [BufferedSourceFactory.OneByteAtATimeSource], this code was extremely slow.
+   * With [BufferedSourceFactory.ONE_BYTE_AT_A_TIME_BUFFERED_SOURCE], this code was extremely slow.
    * https://github.com/square/okio/issues/171
    */
   @Test fun indexOfByteStringAcrossSegmentBoundaries() {
@@ -962,6 +967,10 @@ class CommonBufferedSourceTest(
   }
 
   @Test fun codePoints() {
+    // TODO: remove this suppression once this issue is fixed.
+    // https://youtrack.jetbrains.com/issue/KT-60212
+    if (isWasm()) return
+
     sink.write("7f".decodeHex())
     sink.emit()
     assertEquals(0x7f, source.readUtf8CodePoint().toLong())
@@ -1238,7 +1247,7 @@ class CommonBufferedSourceTest(
   }
 
   @Test fun rangeEqualsOnlyReadsUntilMismatch() {
-    if (factory !== BufferedSourceFactory.OneByteAtATimeSource) return // Other sources read in chunks anyway.
+    if (factory !== BufferedSourceFactory.ONE_BYTE_AT_A_TIME_BUFFERED_SOURCE) return // Other sources read in chunks anyway.
 
     sink.writeUtf8("A man, a plan, a canal. Panama.")
     sink.emit()

@@ -16,8 +16,6 @@
 
 package okio
 
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
 import okio.internal.commonAsUtf8ToByteArray
 import okio.internal.commonToUtf8String
 
@@ -39,13 +37,7 @@ actual class Lock {
 
 internal actual fun newLock(): Lock = Lock.instance
 
-actual inline fun <T> Lock.withLock(action: () -> T): T {
-  contract {
-    callsInPlace(action, InvocationKind.EXACTLY_ONCE)
-  }
-
-  return action()
-}
+actual inline fun <T> Lock.withLock(action: () -> T): T = action()
 
 actual open class IOException actual constructor(
   message: String?,

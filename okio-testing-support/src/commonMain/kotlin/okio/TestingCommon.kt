@@ -17,7 +17,7 @@ package okio
 
 import kotlin.random.Random
 import kotlin.test.assertEquals
-import kotlin.time.Instant
+import kotlin.time.Duration
 import okio.ByteString.Companion.toByteString
 import okio.Path.Companion.toPath
 
@@ -40,34 +40,49 @@ fun randomToken(length: Int) = Random.nextBytes(length).toByteString(0, length).
 
 expect fun isBrowser(): Boolean
 
-/**
- * Returns true if the host file system probably exposes metadata like file creation time.
- *
- * The file system that GitHub actions gives us doesn't do anything when we `touch` a file.
- */
-val fileSystemHasGoodMetadata: Boolean
-  get() = getEnv("GITHUB_WORKSPACE") == null
+expect fun isWasm(): Boolean
 
 val FileMetadata.createdAt: Instant?
   get() {
     val createdAt = createdAtMillis ?: return null
-    return Instant.fromEpochMilliseconds(createdAt)
+    return fromEpochMilliseconds(createdAt)
   }
 
 val FileMetadata.lastModifiedAt: Instant?
   get() {
     val lastModifiedAt = lastModifiedAtMillis ?: return null
-    return Instant.fromEpochMilliseconds(lastModifiedAt)
+    return fromEpochMilliseconds(lastModifiedAt)
   }
 
 val FileMetadata.lastAccessedAt: Instant?
   get() {
     val lastAccessedAt = lastAccessedAtMillis ?: return null
-    return Instant.fromEpochMilliseconds(lastAccessedAt)
+    return fromEpochMilliseconds(lastAccessedAt)
   }
 
-fun fromIso8601String(iso8601String: String): Instant =
-  Instant.fromEpochMilliseconds(Instant.parse(iso8601String).toEpochMilliseconds())
+/*
+ * This file contains some declarations from kotlinx.datetime used by [AbstractFileSystemTest], but
+ * that we can't use because that library isn't yet available for WASM. We should delete these when
+ * WASM is supported in kotlinx.datetime.
+ */
+
+expect interface Clock {
+  fun now(): Instant
+}
+
+expect class Instant : Comparable<Instant> {
+  val epochSeconds: Long
+
+  operator fun plus(duration: Duration): Instant
+
+  operator fun minus(duration: Duration): Instant
+}
+
+expect fun fromEpochSeconds(
+  epochSeconds: Long,
+): Instant
+
+expect fun fromEpochMilliseconds(epochMilliseconds: Long): Instant
 
 expect val FileSystem.isFakeFileSystem: Boolean
 

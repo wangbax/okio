@@ -1,18 +1,24 @@
 import aQute.bnd.gradle.BundleTaskExtension
 import com.diffplug.gradle.spotless.SpotlessExtension
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
+import com.vanniktech.maven.publish.SonatypeHost
 import groovy.util.Node
 import groovy.util.NodeList
+import java.nio.charset.StandardCharsets
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
 import org.gradle.api.tasks.testing.logging.TestLogEvent.STARTED
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin
+import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
 import org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest
 import org.jetbrains.kotlin.gradle.targets.jvm.tasks.KotlinJvmTest
 import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeTest
-import org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   id("build-support").apply(false)
@@ -21,14 +27,12 @@ plugins {
 buildscript {
   dependencies {
     classpath(libs.android.gradle.plugin)
-    classpath(libs.burst.gradle.plugin)
     classpath(libs.dokka)
     classpath(libs.jmh.gradle.plugin)
     classpath(libs.binaryCompatibilityValidator)
     classpath(libs.spotless)
     classpath(libs.bnd)
     classpath(libs.vanniktech.publish.plugin)
-    classpath(libs.tapmoc.gradle.plugin)
   }
 
   repositories {
@@ -110,7 +114,7 @@ allprojects {
     }
     val publishingExtension = extensions.getByType(PublishingExtension::class.java)
     configure<MavenPublishBaseExtension> {
-      publishToMavenCentral(automaticRelease = true)
+      publishToMavenCentral(SonatypeHost.S01, automaticRelease = true)
       signAllPublications()
       pom {
         description.set("A modern I/O library for Android, Java, and Kotlin Multiplatform.")
@@ -173,20 +177,26 @@ subprojects {
     }
   }
 
-  tasks.withType<AbstractKotlinCompile<*>>().configureEach {
-    compilerOptions.apply {
-      freeCompilerArgs.add("-Xexpect-actual-classes")
+  tasks.withType<KotlinCompile>().configureEach {
+    kotlinOptions {
+      jvmTarget = JavaVersion.VERSION_1_8.toString()
+      @Suppress("SuspiciousCollectionReassignment")
+      freeCompilerArgs += "-Xjvm-default=all"
     }
   }
 
-  val testJavaVersion = System.getProperty("test.java.version", "").toIntOrNull()
+  tasks.withType<JavaCompile> {
+    options.encoding = StandardCharsets.UTF_8.toString()
+    sourceCompatibility = JavaVersion.VERSION_1_8.toString()
+    targetCompatibility = JavaVersion.VERSION_1_8.toString()
+  }
+
+  val testJavaVersion = System.getProperty("test.java.version", "19").toInt()
   tasks.withType<Test> {
     val javaToolchains = project.extensions.getByType<JavaToolchainService>()
-    if (testJavaVersion != null) {
-      javaLauncher.set(javaToolchains.launcherFor {
-        languageVersion.set(JavaLanguageVersion.of(testJavaVersion))
-      })
-    }
+    javaLauncher.set(javaToolchains.launcherFor {
+      languageVersion.set(JavaLanguageVersion.of(testJavaVersion))
+    })
 
     testLogging {
       events(STARTED, PASSED, SKIPPED, FAILED)
@@ -214,6 +224,29 @@ subprojects {
         ignoreAttribute("Bnd-LastModified")
       }
     }
+  }
+}
+
+/**
+ * Select a NodeJS version with WASI and WASM GC.
+ * https://github.com/Kotlin/kotlin-wasm-examples/blob/main/wasi-example/build.gradle.kts
+ */
+plugins.withType<NodeJsRootPlugin> {
+  extensions.getByType<NodeJsRootExtension>().apply {
+    if (DefaultNativePlatform.getCurrentOperatingSystem().isWindows) {
+      // We're waiting for a Windows build of NodeJS that can do WASM GC + WASI.
+      nodeVersion = "21.4.0"
+    } else {
+      nodeVersion = "21.0.0-v8-canary202309143a48826a08"
+      nodeDownloadBaseUrl = "https://nodejs.org/download/v8-canary"
+    }
+  }
+  // Suppress an error because yarn doesn't like our Node version string.
+  //   warning You are using Node "21.0.0-v8-canary202309143a48826a08" which is not supported and
+  //   may encounter bugs or unexpected behavior.
+  //   error typescript@5.0.4: The engine "node" is incompatible with this module.
+  tasks.withType<KotlinNpmInstallTask>().all {
+    args += "--ignore-engines"
   }
 }
 

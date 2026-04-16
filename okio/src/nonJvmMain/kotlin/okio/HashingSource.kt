@@ -27,7 +27,7 @@ actual class HashingSource internal constructor(
   private val hashFunction: HashFunction,
 ) : Source {
 
-  actual override fun read(sink: Buffer, byteCount: Long): Long {
+  override fun read(sink: Buffer, byteCount: Long): Long {
     val result = source.read(sink, byteCount)
 
     if (result != -1L) {
@@ -54,10 +54,10 @@ actual class HashingSource internal constructor(
     return result
   }
 
-  actual override fun timeout(): Timeout =
+  override fun timeout(): Timeout =
     source.timeout()
 
-  actual override fun close() =
+  override fun close() =
     source.close()
 
   actual val hash: ByteString

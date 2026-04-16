@@ -16,15 +16,15 @@
 package okio
 
 enum class TimeoutFactory {
-  Base {
+  BASE {
     override fun newTimeout() = Timeout()
   },
 
-  Forwarding {
-    override fun newTimeout() = ForwardingTimeout(Base.newTimeout())
+  FORWARDING {
+    override fun newTimeout() = ForwardingTimeout(BASE.newTimeout())
   },
 
-  Async {
+  ASYNC {
     override fun newTimeout() = AsyncTimeout()
   },
   ;

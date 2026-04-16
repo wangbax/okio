@@ -36,5 +36,3 @@ internal actual fun datePartsToEpochMillis(
   calendar.set(year, month - 1, day, hour, minute, second)
   return calendar.time.time
 }
-
-internal val EMPTY_BYTE_ARRAY = byteArrayOf()

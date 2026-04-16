@@ -15,6 +15,8 @@
  */
 package okio
 
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.UByteVar
 import kotlinx.cinterop.UnsafeNumber
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.alloc
@@ -56,18 +58,18 @@ actual class Inflater actual constructor(
       require(0 <= sourcePos && sourcePos <= sourceLimit && sourceLimit <= source.size)
       require(0 <= targetPos && targetPos <= targetLimit && targetLimit <= target.size)
 
-      source.asUByteArray().usePinned { pinnedSource ->
-        target.asUByteArray().usePinned { pinnedTarget ->
+      source.usePinned { pinnedSource ->
+        target.usePinned { pinnedTarget ->
           val sourceByteCount = sourceLimit - sourcePos
           zStream.next_in = when {
-            sourceByteCount > 0 -> pinnedSource.addressOf(sourcePos)
+            sourceByteCount > 0 -> pinnedSource.addressOf(sourcePos) as CPointer<UByteVar>
             else -> null
           }
           zStream.avail_in = sourceByteCount.toUInt()
 
           val targetByteCount = targetLimit - targetPos
           zStream.next_out = when {
-            targetByteCount > 0 -> pinnedTarget.addressOf(targetPos)
+            targetByteCount > 0 -> pinnedTarget.addressOf(targetPos) as CPointer<UByteVar>
             else -> null
           }
           zStream.avail_out = targetByteCount.toUInt()

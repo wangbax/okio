@@ -18,6 +18,7 @@
 package okio
 
 import kotlin.jvm.JvmName
+import kotlin.native.concurrent.SharedImmutable
 import okio.internal.HEX_DIGIT_CHARS
 
 internal fun checkOffsetAndCount(size: Long, offset: Long, byteCount: Long) {
@@ -55,12 +56,10 @@ internal fun Long.reverseBytes(): Long {
 
 /* ktlint-enable no-multi-spaces indent */
 
-@Suppress("NOTHING_TO_INLINE") // Syntactic sugar.
 internal inline infix fun Int.leftRotate(bitCount: Int): Int {
   return (this shl bitCount) or (this ushr (32 - bitCount))
 }
 
-@Suppress("NOTHING_TO_INLINE") // Syntactic sugar.
 internal inline infix fun Long.rightRotate(bitCount: Int): Long {
   return (this ushr bitCount) or (this shl (64 - bitCount))
 }
@@ -161,4 +160,27 @@ internal fun Long.toHexString(): String {
   }
 
   return result.concatToString(i, result.size)
+}
+
+// Work around a problem where Kotlin/JS IR can't handle default parameters on expect functions
+// that depend on the receiver. We use well-known, otherwise-impossible values here and must check
+// for them in the receiving function, then swap in the true default value.
+// https://youtrack.jetbrains.com/issue/KT-45542
+
+@SharedImmutable
+internal val DEFAULT__new_UnsafeCursor = Buffer.UnsafeCursor()
+internal fun resolveDefaultParameter(unsafeCursor: Buffer.UnsafeCursor): Buffer.UnsafeCursor {
+  if (unsafeCursor === DEFAULT__new_UnsafeCursor) return Buffer.UnsafeCursor()
+  return unsafeCursor
+}
+
+internal val DEFAULT__ByteString_size = -1234567890
+internal fun ByteString.resolveDefaultParameter(position: Int): Int {
+  if (position == DEFAULT__ByteString_size) return size
+  return position
+}
+
+internal fun ByteArray.resolveDefaultParameter(sizeParam: Int): Int {
+  if (sizeParam == DEFAULT__ByteString_size) return size
+  return sizeParam
 }

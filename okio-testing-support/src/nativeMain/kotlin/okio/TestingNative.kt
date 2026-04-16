@@ -21,5 +21,7 @@ import platform.posix.getenv
 
 actual fun isBrowser() = false
 
+actual fun isWasm() = false
+
 @OptIn(ExperimentalForeignApi::class)
 actual fun getEnv(name: String): String? = getenv(name)?.toKString()

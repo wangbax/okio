@@ -28,7 +28,7 @@ import assertk.assertions.isNull
 import assertk.assertions.isTrue
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
-import kotlin.time.Instant
+import kotlinx.datetime.Instant
 import okio.ByteString.Companion.encodeUtf8
 import okio.Path.Companion.toPath
 
@@ -227,6 +227,8 @@ class ZipFileSystemTest {
   fun zipWithFileOutOfBoundsModifiedDate() {
     val zipPath = base / "zipWithFileOutOfBoundsModifiedDate.zip"
     val zipFileSystem = fileSystem.openZip(zipPath)
+
+    println(Instant.fromEpochMilliseconds(-2147483648000L))
 
     zipFileSystem.metadata("a.txt".toPath())
       .apply {

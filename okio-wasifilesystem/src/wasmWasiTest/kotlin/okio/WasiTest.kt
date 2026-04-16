@@ -15,7 +15,7 @@
  */
 package okio
 
-import app.cash.burst.InterceptTest
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -25,10 +25,12 @@ import okio.Path.Companion.toPath
 
 class WasiTest {
   private val fileSystem = WasiFileSystem
+  private val base: Path = "/tmp".toPath() / "${this::class.simpleName}-${randomToken(16)}"
 
-  @InterceptTest
-  private val testDirectory = TestDirectory(fileSystem, "/tmp".toPath())
-  private val base: Path get() = testDirectory.path
+  @BeforeTest
+  fun setUp() {
+    fileSystem.createDirectory(base)
+  }
 
   @Test
   fun createDirectory() {
@@ -379,16 +381,5 @@ class WasiTest {
         },
       )
     }
-  }
-
-  /**
-   * Confirm environment variables are correctly decoded. (These are hardcoded in the test Wasi
-   * config.)
-   */
-  @Test
-  fun testEnv() {
-    assertEquals("", env["WasiTest.testEnv.empty"])
-    assertEquals("hello", env["WasiTest.testEnv.nonempty"])
-    assertEquals("/okio".toPath(), okioRoot)
   }
 }

@@ -19,5 +19,7 @@ actual fun isBrowser(): Boolean {
   return js("""(globalThis.window || null)""") != null
 }
 
+actual fun isWasm() = false
+
 actual fun getEnv(name: String): String? =
   js("globalThis.process.env[name]") as String?

@@ -15,7 +15,6 @@
  */
 package okio
 
-import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.util.zip.Deflater
 import java.util.zip.GZIPInputStream
@@ -24,6 +23,7 @@ import okio.ByteString.Companion.decodeHex
 import okio.HashingSink.Companion.sha256
 import okio.TestUtil.SEGMENT_SIZE
 import okio.TestUtil.randomSource
+import okio.TestingExecutors.newExecutorService
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -93,7 +93,7 @@ class LargeStreamsTest {
 
   /** Calls [readAllAndClose] on a background thread.  */
   private fun readAllAndCloseAsync(source: Source, sink: Sink): Future<Long> {
-    val executor = Executors.newScheduledThreadPool(0)
+    val executor = newExecutorService(0)
     return try {
       executor.submit<Long> { readAllAndClose(source, sink) }
     } finally {

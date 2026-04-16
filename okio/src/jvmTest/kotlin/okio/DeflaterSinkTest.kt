@@ -15,12 +15,6 @@
  */
 package okio
 
-import assertk.all
-import assertk.assertFailure
-import assertk.assertions.cause
-import assertk.assertions.hasMessage
-import assertk.assertions.isInstanceOf
-import assertk.assertions.isNotNull
 import java.util.zip.Deflater
 import java.util.zip.Inflater
 import java.util.zip.InflaterInputStream
@@ -141,7 +135,7 @@ class DeflaterSinkTest {
   @Test
   fun rethrowNullPointerAsIOException() {
     val deflater = Deflater()
-    // Close to cause an exception.
+    // Close to cause a NullPointerException
     deflater.end()
 
     val data = Buffer().apply {
@@ -149,13 +143,11 @@ class DeflaterSinkTest {
     }
     val deflaterSink = DeflaterSink(Buffer(), deflater)
 
-    assertFailure {
+    val ioe = Assert.assertThrows("", IOException::class.java) {
       deflaterSink.write(data, data.size)
-    }.all {
-      isInstanceOf<IOException>()
-      hasMessage("Deflater already closed")
-      cause().isNotNull()
     }
+
+    Assert.assertTrue(ioe.cause is NullPointerException)
   }
 
   /**

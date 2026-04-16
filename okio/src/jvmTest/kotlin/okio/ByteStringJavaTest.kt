@@ -15,7 +15,6 @@
  */
 package okio
 
-import app.cash.burst.Burst
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
@@ -35,48 +34,57 @@ import okio.TestUtil.makeSegments
 import okio.TestUtil.reserialize
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
+import org.junit.runners.Parameterized.Parameter
+import org.junit.runners.Parameterized.Parameters
 
-@Burst
-class ByteStringJavaTest(
-  private val factory: Factory,
-) {
-  enum class Factory {
-    BaseByteString {
-      override fun decodeHex(hex: String): ByteString {
-        return hex.decodeHex()
-      }
+@RunWith(Parameterized::class)
+class ByteStringJavaTest {
+  interface Factory {
+    fun decodeHex(hex: String): ByteString
+    fun encodeUtf8(s: String): ByteString
 
-      override fun encodeUtf8(s: String): ByteString {
-        return s.encodeUtf8()
-      }
-    },
-    SegmentedByteString {
-      override fun decodeHex(hex: String): ByteString {
-        val buffer = Buffer()
-        buffer.write(hex.decodeHex())
-        return buffer.snapshot()
-      }
+    companion object {
+      val BYTE_STRING: Factory = object : Factory {
+        override fun decodeHex(hex: String): ByteString {
+          return hex.decodeHex()
+        }
 
-      override fun encodeUtf8(s: String): ByteString {
-        val buffer = Buffer()
-        buffer.writeUtf8(s)
-        return buffer.snapshot()
+        override fun encodeUtf8(s: String): ByteString {
+          return s.encodeUtf8()
+        }
       }
-    },
-    OneBytePerSegment {
-      override fun decodeHex(hex: String): ByteString {
-        return makeSegments(hex.decodeHex())
-      }
+      val SEGMENTED_BYTE_STRING: Factory = object : Factory {
+        override fun decodeHex(hex: String): ByteString {
+          val buffer = Buffer()
+          buffer.write(hex.decodeHex())
+          return buffer.snapshot()
+        }
 
-      override fun encodeUtf8(s: String): ByteString {
-        return makeSegments(s.encodeUtf8())
+        override fun encodeUtf8(s: String): ByteString {
+          val buffer = Buffer()
+          buffer.writeUtf8(s)
+          return buffer.snapshot()
+        }
       }
-    },
-    ;
+      val ONE_BYTE_PER_SEGMENT: Factory = object : Factory {
+        override fun decodeHex(hex: String): ByteString {
+          return makeSegments(hex.decodeHex())
+        }
 
-    abstract fun decodeHex(hex: String): ByteString
-    abstract fun encodeUtf8(s: String): ByteString
+        override fun encodeUtf8(s: String): ByteString {
+          return makeSegments(s.encodeUtf8())
+        }
+      }
+    }
   }
+
+  @Parameter(0)
+  lateinit var factory: Factory
+
+  @Parameter(1)
+  lateinit var name: String
 
   @Test
   fun ofByteBuffer() {
@@ -256,5 +264,15 @@ class ByteStringJavaTest(
 
   companion object {
     private val bronzeHorseman = "На берегу пустынных волн"
+
+    @JvmStatic
+    @Parameters(name = "{1}")
+    fun parameters(): List<Array<Any>> {
+      return listOf(
+        arrayOf(Factory.BYTE_STRING, "ByteString"),
+        arrayOf(Factory.SEGMENTED_BYTE_STRING, "SegmentedByteString"),
+        arrayOf(Factory.ONE_BYTE_PER_SEGMENT, "SegmentedByteString (one-at-a-time)"),
+      )
+    }
   }
 }

@@ -1,7 +1,6 @@
-import com.vanniktech.maven.publish.JavadocJar
+import com.vanniktech.maven.publish.JavadocJar.Dokka
 import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
-import org.jetbrains.kotlin.gradle.dsl.JsModuleKind
 
 plugins {
   kotlin("multiplatform")
@@ -16,9 +15,12 @@ kotlin {
   }
   if (kmpJsEnabled) {
     js {
-      compilerOptions {
-        moduleKind = JsModuleKind.MODULE_UMD
-        sourceMap = true
+      compilations.all {
+        kotlinOptions {
+          moduleKind = "umd"
+          sourceMap = true
+          metaInfo = true
+        }
       }
       nodejs {
         testTask {
@@ -35,11 +37,6 @@ kotlin {
     configureOrCreateNativePlatforms()
   }
   sourceSets {
-    all {
-      languageSettings.apply {
-        optIn("kotlin.time.ExperimentalTime")
-      }
-    }
     val commonMain by getting {
       dependencies {
         api(libs.kotlin.time)
@@ -52,21 +49,6 @@ kotlin {
       configureOrCreateWasmPlatform(wasi = false)
       createSourceSet("wasmMain", parent = commonMain, children = listOf("wasmJs"))
       createSourceSet("wasmTest", parent = commonTest, children = listOf("wasmJs"))
-    }
-
-    val nonJvmMain by creating {
-      dependsOn(commonMain)
-    }
-    if (kmpJsEnabled) {
-      getByName("jsMain").dependsOn(nonJvmMain)
-    }
-    if (kmpNativeEnabled) {
-      for (childTarget in nativeTargets) {
-        get("${childTarget}Main").dependsOn(nonJvmMain)
-      }
-    }
-    if (kmpWasmEnabled) {
-      getByName("wasmMain").dependsOn(nonJvmMain)
     }
   }
 }
@@ -93,6 +75,6 @@ tasks {
 
 configure<MavenPublishBaseExtension> {
   configure(
-    KotlinMultiplatform(javadocJar = JavadocJar.Empty())
+    KotlinMultiplatform(javadocJar = Dokka("dokkaGfm"))
   )
 }

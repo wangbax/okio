@@ -7,7 +7,7 @@ coverage.
 
 ### Compression (Deflater, Inflater, Gzip)
 
-JVM and native platforms.
+JVM-only.
 
 
 ### Concurrency (Pipe, Timeouts, Throttler)

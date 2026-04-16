@@ -15,8 +15,6 @@
  */
 package okio
 
-import kotlin.time.Clock
-import kotlin.time.Instant
 import kotlin.wasm.unsafe.UnsafeWasmMemoryApi
 import kotlin.wasm.unsafe.withScopedMemoryAllocator
 import okio.internal.preview1.clock_time_get
@@ -35,11 +33,7 @@ object WasiClock : Clock {
       if (errno != 0) throw IllegalStateException("failed to get now: $errno")
 
       val nanos = returnPointer.loadLong()
-      val seconds = nanos / 1_000_000_000L
-      return Instant.fromEpochSeconds(
-        epochSeconds = seconds,
-        nanosecondAdjustment = (nanos - seconds * 1_000_000_000L).toInt(),
-      )
+      return Instant(epochMilliseconds = nanos / 1_000_000L)
     }
   }
 }

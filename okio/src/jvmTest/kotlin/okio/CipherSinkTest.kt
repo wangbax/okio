@@ -15,14 +15,20 @@
  */
 package okio
 
-import app.cash.burst.Burst
 import kotlin.random.Random
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 
-@Burst
-class CipherSinkTest(
-  private val cipherAlgorithm: CipherAlgorithm,
-) {
+@RunWith(Parameterized::class)
+class CipherSinkTest(private val cipherAlgorithm: CipherAlgorithm) {
+  companion object {
+    @get:Parameterized.Parameters(name = "{0}")
+    @get:JvmStatic
+    val parameters: List<CipherAlgorithm>
+      get() = CipherAlgorithm.BLOCK_CIPHER_ALGORITHMS
+  }
+
   @Test
   fun encrypt() {
     val random = Random(8912860393601532863)
